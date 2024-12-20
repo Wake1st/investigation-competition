@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://dq21tc0ehopgn"]
+
+[ext_resource type="Texture2D" uid="uid://fx0a30dw3nlo" path="res://assets/dude.png" id="1_gxyw5"]
+[ext_resource type="Script" path="res://player/Player.cs" id="1_wyl86"]
+
+[node name="Player" type="Node2D"]
+script = ExtResource("1_wyl86")
+
+[node name="Image" type="Sprite2D" parent="."]
+texture = ExtResource("1_gxyw5")
+offset = Vector2(0, -64)

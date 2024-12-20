@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://cf2oavywn6o6g"]
+
+[ext_resource type="PackedScene" uid="uid://bfybj5id4p60j" path="res://room.tscn" id="1_j0c4n"]
+[ext_resource type="PackedScene" uid="uid://dq21tc0ehopgn" path="res://player/player.tscn" id="2_srm2y"]
+
+[node name="Level" type="Node"]
+
+[node name="Room" parent="." instance=ExtResource("1_j0c4n")]
+
+[node name="Player" parent="." instance=ExtResource("2_srm2y")]
+unique_name_in_owner = true
+z_index = 1
+scale = Vector2(1.5, 1.5)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+offset = Vector2(0, -224)
