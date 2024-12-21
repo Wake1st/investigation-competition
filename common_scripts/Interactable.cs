@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using Godot;
 
 public partial class Interactable : Area2D
@@ -6,18 +7,25 @@ public partial class Interactable : Area2D
   public Clue Clue { get; set; }
 
   private Sprite2D icon;
+  private Tween iconAnimation;
+  private Timer iconAnimationTimer;
+  private float iconAnimationDuration = 0.1f;
 
   public override void _Ready()
   {
     base._Ready();
-    icon = GetNode<Sprite2D>("Icon");
     BodyEntered += OnBodyEntered;
     BodyExited += OnBodyExited;
+
+    icon = GetNode<Sprite2D>("Icon");
+
+    iconAnimationTimer = GetNode<Timer>("Icon/Timer");
+    iconAnimationTimer.Timeout += OnAnimationEnd;
   }
 
   private void OnBodyEntered(Node2D body)
   {
-    GD.Print("body entered interaction zone");
+    // GD.Print("body entered interaction zone");
     if (body.GetType() == typeof(InteractionArea))
     {
       //  connect interaction
@@ -25,19 +33,33 @@ public partial class Interactable : Area2D
 
       //  animate icon
       icon.Visible = true;
+      iconAnimation = CreateTween();
+      iconAnimation.TweenProperty(icon, "position", icon.Position + new Vector2(0f, -64f), iconAnimationDuration);
     }
   }
 
   private void OnBodyExited(Node2D body)
   {
-    GD.Print("body exited interaction zone");
+    // GD.Print("body exited interaction zone");
     if (body.GetType() == typeof(InteractionArea))
     {
       //  connect interaction
       ((InteractionArea)body).DisconnectInteractable(this);
 
       //  animate icon
-      icon.Visible = false;
+      iconAnimation = CreateTween();
+      iconAnimation.TweenProperty(icon, "position", icon.Position + new Vector2(0f, 64f), iconAnimationDuration);
+      iconAnimationTimer.Start(iconAnimationDuration);
     }
+  }
+
+  private void OnAnimationEnd()
+  {
+    icon.Visible = false;
+  }
+
+  public void Destroy()
+  {
+    CallDeferred(MethodName.QueueFree);
   }
 }

@@ -47,14 +47,14 @@ public partial class Player : Node2D
 	private void OnRegisterInteractable(Interactable interactable)
 	{
 		CollidingInteractable = interactable;
-		GD.Print("player registered interaction zone");
+		// GD.Print("player registered interaction zone");
 	}
 
 	private void OnUnregisterInteractable(Interactable interactable)
 	{
 		if (CollidingInteractable == interactable)
 			CollidingInteractable = null;
-		GD.Print("player unregistered interaction zone");
+		// GD.Print("player unregistered interaction zone");
 	}
 
 	private static Vector2 MovementInputs()
@@ -116,6 +116,10 @@ public partial class Player : Node2D
 			{
 				Clues.Add(clue);
 				GD.Print("Clue collected: ", clue.Name);
+
+				//	destroy the interactable
+				CollidingInteractable.Destroy();
+				CollidingInteractable = null;
 			}
 		}
 	}
