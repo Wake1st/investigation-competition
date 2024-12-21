@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Godot;
 
 public partial class Player : Node2D
@@ -6,7 +7,6 @@ public partial class Player : Node2D
 	const float COORD3D_CLAMP_Z = .18f;
 
 	const float HEIGHT_TO_FOCAL = -642f;
-	const float HEIGHT_WIDTH_RATIO = 0.1875f;
 	const float MAX_FLOOR_HALF_WIDTH = 512;
 	const float MID_FLOOR_HALF_WIDTH = 448f;
 
@@ -15,17 +15,51 @@ public partial class Player : Node2D
 
 	private Vector3 coord3D = new(0f, 0f, 0f);
 	private Sprite2D sprite;
+	private InteractionArea interactionArea;
+	private List<Clue> Clues = new();
+
+	public Interactable CollidingInteractable { get; set; } = null;
 
 	public override void _Ready()
 	{
 		base._Ready();
 		sprite = GetNode<Sprite2D>("Image");
+
+		interactionArea = GetNode<InteractionArea>("InteractionArea");
+		interactionArea.RegisterInteractable += OnRegisterInteractable;
+		interactionArea.UnRegisterInteractable += OnUnregisterInteractable;
 	}
 
 	public override void _PhysicsProcess(double delta)
 	{
-		//	collect movement
-		Vector2 movement = new()
+		//	player movement
+		Vector2 movement = MovementInputs();
+		Move(movement, (float)delta);
+		Animate(movement);
+	}
+
+	public override void _Input(InputEvent @event)
+	{
+		if (@event.IsActionPressed("ui_accept"))
+			ProcessAction();
+	}
+
+	private void OnRegisterInteractable(Interactable interactable)
+	{
+		CollidingInteractable = interactable;
+		// GD.Print("player registered interaction zone");
+	}
+
+	private void OnUnregisterInteractable(Interactable interactable)
+	{
+		if (CollidingInteractable == interactable)
+			CollidingInteractable = null;
+		// GD.Print("player unregistered interaction zone");
+	}
+
+	private static Vector2 MovementInputs()
+	{
+		return new()
 		{
 			X = (Input.IsActionPressed("ui_left"), Input.IsActionPressed("ui_right")) switch
 			{
@@ -42,9 +76,12 @@ public partial class Player : Node2D
 				(true, true) => 0.0f,
 			}
 		};
+	}
 
+	private void Move(Vector2 movement, float delta)
+	{
 		//	update coordinates
-		coord3D += new Vector3(movement.X * PLANAR_SPEED, 0.0f, -movement.Y * DEPTH_SPEED) * (float)delta;
+		coord3D += new Vector3(movement.X * PLANAR_SPEED, 0.0f, -movement.Y * DEPTH_SPEED) * delta;
 		coord3D.X = Mathf.Clamp(coord3D.X, -COORD3D_CLAMP_X, COORD3D_CLAMP_X);
 		coord3D.Z = Mathf.Clamp(coord3D.Z, -COORD3D_CLAMP_Z, COORD3D_CLAMP_Z);
 
@@ -59,15 +96,31 @@ public partial class Player : Node2D
 			coord3D.X * flatHorizontalMultiplier,
 			flatVerticalMultiplier
 		);
+	}
 
+	private void Animate(Vector2 movement)
+	{
 		//	animate sprite
 		if (sprite.FlipH && movement.X < 0f)
-		{
 			sprite.FlipH = false;
-		}
 		else if (!sprite.FlipH && movement.X > 0f)
-		{
 			sprite.FlipH = true;
+	}
+
+	private void ProcessAction()
+	{
+		if (CollidingInteractable != null)
+		{
+			Clue clue = CollidingInteractable.Clue;
+			if (!Clues.Contains(clue))
+			{
+				Clues.Add(clue);
+				GD.Print("Clue collected: ", clue.Name);
+
+				//	destroy the interactable
+				CollidingInteractable.Destroy();
+				CollidingInteractable = null;
+			}
 		}
 	}
 }
