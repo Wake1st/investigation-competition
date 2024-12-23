@@ -33,7 +33,7 @@ public partial class EvidenceSlot : Panel
   private void OnMouseExit()
   {
     // if (collapseTimer.IsStopped() && !willCollapse)
-    if (new Rect2(GlobalPosition, Size).HasPoint(GetGlobalMousePosition()))
+    if (new Rect2(GlobalPosition, Size).HasPoint(GetGlobalMousePosition()) == false)
     {
       GD.Print($"position: {GlobalPosition}\tsize: {Size}\tmouse: {GetGlobalMousePosition()}");
       expansionAnimation = CreateTween();
