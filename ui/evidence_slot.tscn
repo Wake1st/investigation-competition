@@ -1,0 +1,56 @@
+[gd_scene load_steps=3 format=3 uid="uid://ba0uwhfj3ooon"]
+
+[ext_resource type="Texture2D" uid="uid://ixudkvc0uvr" path="res://assets/wallet.png" id="1_lu2uk"]
+[ext_resource type="Script" path="res://ui/EvidenceSlot.cs" id="1_wpbhi"]
+
+[node name="EvidenceSlot" type="Panel"]
+clip_contents = true
+custom_minimum_size = Vector2(64, 128)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -64.0
+offset_right = 32.0
+offset_bottom = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_default_cursor_shape = 2
+script = ExtResource("1_wpbhi")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.1092, 0.78, 0.54522, 1)
+
+[node name="Description" type="RichTextLabel" parent="."]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_left = 129.0
+offset_right = 257.0
+grow_vertical = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 11
+text = "*Placeholder*"
+
+[node name="Image" type="TextureRect" parent="."]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 256.0
+grow_vertical = 2
+texture = ExtResource("1_lu2uk")
+expand_mode = 2
+stretch_mode = 4
+
+[connection signal="mouse_entered" from="." to="." method="OnMouseEnter"]
+[connection signal="mouse_exited" from="." to="." method="OnMouseExit"]
