@@ -1,8 +1,8 @@
-using System.Linq;
 using Godot;
 
 public partial class Inventory : Control
 {
+  private PackedScene slotScene = ResourceLoader.Load<PackedScene>("res://ui/evidence_slot.tscn");
 
   private HBoxContainer EvidenceList;
 
@@ -10,15 +10,12 @@ public partial class Inventory : Control
   {
     base._Ready();
     EvidenceList = GetNode<HBoxContainer>("%EvidenceList");
-
-    foreach (EvidenceSlot slot in EvidenceList.GetChildren().Cast<EvidenceSlot>())
-    {
-      // slot.SlotResized += OnEvidenceSlotResized;
-    }
   }
 
-  private void OnEvidenceSlotResized()
+  public void AddClue(Clue clue)
   {
-    GD.Print("event caught");
+    EvidenceSlot slot = slotScene.Instantiate<EvidenceSlot>();
+    EvidenceList.AddChild(slot);
+    slot.Setup(clue);
   }
 }

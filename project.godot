@@ -13,7 +13,13 @@ config_version=5
 config/name="investigation-competition"
 run/main_scene="res://level.tscn"
 config/features=PackedStringArray("4.3", "C#", "GL Compatibility")
+boot_splash/bg_color=Color(0.0598142, 3.3135e-06, 0.0571367, 1)
 config/icon="res://icon.svg"
+
+[display]
+
+window/size/viewport_width=1400
+window/size/viewport_height=940
 
 [dotnet]
 
@@ -23,3 +29,4 @@ project/assembly_name="investigation-competition"
 
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+environment/defaults/default_clear_color=Color(0.0598142, 3.3135e-06, 0.0571367, 1)

@@ -1,15 +1,15 @@
-[gd_scene load_steps=6 format=3 uid="uid://cf2oavywn6o6g"]
+[gd_scene load_steps=8 format=3 uid="uid://cf2oavywn6o6g"]
 
+[ext_resource type="Script" path="res://Level.cs" id="1_5kw3u"]
 [ext_resource type="PackedScene" uid="uid://bfybj5id4p60j" path="res://room.tscn" id="1_j0c4n"]
 [ext_resource type="PackedScene" uid="uid://dq21tc0ehopgn" path="res://player/player.tscn" id="2_srm2y"]
 [ext_resource type="PackedScene" uid="uid://6xux820t2jh0" path="res://clues/clue.tscn" id="3_4xh2n"]
 [ext_resource type="PackedScene" uid="uid://b7ahe1b2hetg6" path="res://interactable.tscn" id="3_orbhs"]
 [ext_resource type="Texture2D" uid="uid://ixudkvc0uvr" path="res://assets/wallet.png" id="4_g0j56"]
+[ext_resource type="PackedScene" uid="uid://dbguthovey4pg" path="res://ui/inventory.tscn" id="6_0ge13"]
 
 [node name="Level" type="Node"]
-
-[node name="Camera2D" type="Camera2D" parent="."]
-offset = Vector2(0, -224)
+script = ExtResource("1_5kw3u")
 
 [node name="Room" parent="." instance=ExtResource("1_j0c4n")]
 
@@ -23,3 +23,16 @@ Clue = NodePath("Wallet")
 
 [node name="Wallet" parent="Interactable" instance=ExtResource("3_4xh2n")]
 Image = ExtResource("4_g0j56")
+Description = "Looks (and smells) like leather, has $24, a few gift cards, and an expired, BOGO coupon for a \"Jimmy's Cream Blast\"."
+
+[node name="Inventory" parent="." instance=ExtResource("6_0ge13")]
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_top = 240.0
+offset_bottom = 240.0
+grow_horizontal = 1
+grow_vertical = 1
+
+[node name="Camera2D" type="Camera2D" parent="."]
+offset = Vector2(0, -224)

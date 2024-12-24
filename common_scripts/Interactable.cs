@@ -60,6 +60,7 @@ public partial class Interactable : Area2D
 
   public void Destroy()
   {
-    CallDeferred(MethodName.QueueFree);
+    GD.Print($"has timer: {HasNode("Icon/Timer")}");
+    QueueFree();
   }
 }

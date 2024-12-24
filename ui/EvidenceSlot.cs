@@ -2,9 +2,8 @@ using Godot;
 
 public partial class EvidenceSlot : Panel
 {
-  const float MIN_EXPANDED_X = 128f;
-  const float MAX_EXPANDED_X = 512f;
-  const float COLLAPSE_TIMER_DELAY = 0.2f;
+  const float MIN_EXPANDED_X = 64f;
+  const float MAX_EXPANDED_X = 256f;
 
   [Signal]
   public delegate void SlotResizedEventHandler();
@@ -12,16 +11,26 @@ public partial class EvidenceSlot : Panel
   [Export]
   public float expantionAnimationDuration = 0.1f;
   private Tween expansionAnimation;
-  private Timer collapseTimer;
-  private bool willCollapse = false;
+
+  private TextureRect Image;
+  private RichTextLabel Description;
 
   public override void _Ready()
   {
-    collapseTimer = GetNode<Timer>("CollapseDelay");
-    collapseTimer.Timeout += OnCollapseDelayTimeout;
+    base._Ready();
+
+    Image = GetNode<TextureRect>("Image");
+    Description = GetNode<RichTextLabel>("Description");
+    GD.Print("added Image, added description");
 
     MouseEntered += OnMouseEnter;
     MouseExited += OnMouseExit;
+  }
+
+  public void Setup(Clue clue)
+  {
+    Image.Texture = clue.Image;
+    Description.Text = clue.Description;
   }
 
   private void OnMouseEnter()
@@ -32,26 +41,10 @@ public partial class EvidenceSlot : Panel
 
   private void OnMouseExit()
   {
-    // if (collapseTimer.IsStopped() && !willCollapse)
-    if (new Rect2(GlobalPosition, Size).HasPoint(GetGlobalMousePosition()) == false)
+    if (!GetGlobalRect().HasPoint(GetGlobalMousePosition()))
     {
-      GD.Print($"position: {GlobalPosition}\tsize: {Size}\tmouse: {GetGlobalMousePosition()}");
       expansionAnimation = CreateTween();
       expansionAnimation.TweenProperty(this, "custom_minimum_size:x", MIN_EXPANDED_X, expantionAnimationDuration);
-      // collapseTimer.Start(COLLAPSE_TIMER_DELAY);
-      // willCollapse = true;
     }
-  }
-
-  private void OnCollapseDelayTimeout()
-  {
-    expansionAnimation = CreateTween();
-    expansionAnimation.TweenProperty(this, "custom_minimum_size:x", MIN_EXPANDED_X, expantionAnimationDuration);
-    willCollapse = false;
-  }
-
-  private void OnRectResized()
-  {
-    EmitSignal(SignalName.SlotResized);
   }
 }
