@@ -19,7 +19,7 @@ public partial class Interactable : Area2D
 
     icon = GetNode<Sprite2D>("Icon");
 
-    iconAnimationTimer = GetNode<Timer>("Icon/Timer");
+    iconAnimationTimer = GetNode<Timer>("Timer");
     iconAnimationTimer.Timeout += OnAnimationEnd;
   }
 
@@ -60,7 +60,8 @@ public partial class Interactable : Area2D
 
   public void Destroy()
   {
-    GD.Print($"has timer: {HasNode("Icon/Timer")}");
+    GD.Print($"has timer: {HasNode("Timer")}");
+    GD.Print($"is in tree: {iconAnimationTimer.IsInsideTree()}");
     QueueFree();
   }
 }
