@@ -8,6 +8,7 @@ Collect clues, make deductions, and close your case before the time runs out! Th
 
 - [x] player can collect `clues`
 - [x] player can inspect `clues`
+- [ ] dev can adjust a visible focal point for each location (to align the walls properly)
 - [ ] player can plant `foux-clues` (a `bool` in `clue`) 
   - [ ] a player's `expertise` allows them to `detect` `foux-clues`
 - [ ] some abilities allow players to steal `clues` from other players
