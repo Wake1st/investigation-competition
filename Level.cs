@@ -7,15 +7,15 @@ public partial class Level : Node
 
   public override void _Ready()
   {
-    base._Ready();
+	  base._Ready();
 
-    player = GetNode<Player>("Player");
-    player.ClueCollected += OnClueCollected;
-    inventory = GetNode<Inventory>("Inventory");
+	  player = GetNode<Player>("Player");
+	  player.ClueCollected += OnClueCollected;
+	  inventory = GetNode<Inventory>("Inventory");
   }
 
   private void OnClueCollected(Clue clue)
   {
-    inventory.AddClue(clue);
+	  inventory.AddClue(clue);
   }
 }
