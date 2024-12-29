@@ -1,7 +1,9 @@
+using System;
 using Godot;
 
 public partial class Location : GodotObject
 {
-    public string Id { get; set; }
-    public string Name { get; set; }
+    public Guid Id { get; set; } = Guid.NewGuid();
+    public string Term { get; set; }
+    public string Description { get; set; }
 }

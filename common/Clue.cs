@@ -1,10 +1,10 @@
+using System;
 using Godot;
 
 [Tool]
 public partial class Clue : Node2D
 {
-  [Export]
-  public string Id { get; set; }
+  public Guid Id { get; set; } = Guid.NewGuid();
   [Export]
   public string Term { get; set; }
   [Export(PropertyHint.MultilineText)]
