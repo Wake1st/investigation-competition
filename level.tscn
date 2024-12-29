@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://dq21tc0ehopgn" path="res://player/player.tscn" id="2_srm2y"]
 [ext_resource type="PackedScene" uid="uid://6xux820t2jh0" path="res://sprite_nodes/clue_node.tscn" id="3_4xh2n"]
 [ext_resource type="Texture2D" uid="uid://ixudkvc0uvr" path="res://assets/wallet.png" id="4_g0j56"]
-[ext_resource type="PackedScene" path="res://sprite_nodes/interactable.tscn" id="5_u17rx"]
+[ext_resource type="PackedScene" uid="uid://bvjgnkcgi31qc" path="res://sprite_nodes/interactable.tscn" id="5_u17rx"]
 [ext_resource type="PackedScene" uid="uid://dbguthovey4pg" path="res://ui/inventory.tscn" id="6_0ge13"]
 
 [node name="Level" type="Node"]
