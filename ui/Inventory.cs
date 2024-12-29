@@ -12,10 +12,10 @@ public partial class Inventory : Control
     EvidenceList = GetNode<HBoxContainer>("%EvidenceList");
   }
 
-  public void AddClue(Clue clue)
+  public void AddClue(ClueNode clueNode)
   {
     EvidenceSlot slot = slotScene.Instantiate<EvidenceSlot>();
     EvidenceList.AddChild(slot);
-    slot.Setup(clue);
+    slot.Setup(clueNode);
   }
 }

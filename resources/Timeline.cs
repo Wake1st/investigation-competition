@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Godot;
 
-public partial class Timeline : GodotObject
+public partial class Timeline : Resource
 {
     public string Id { get; set; }
     public string Name { get; set; }
@@ -10,7 +10,7 @@ public partial class Timeline : GodotObject
     public List<TimelineNode> Nodes { get; set; }
 }
 
-public partial class TimelineNode : GodotObject
+public partial class TimelineNode : Resource
 {
     public Occurence Occurence { get; set; }
     public List<Occurence> Neighbors { get; set; }

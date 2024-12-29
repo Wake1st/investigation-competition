@@ -1,7 +1,7 @@
 using System;
 using Godot;
 
-public partial class Action : GodotObject
+public partial class Action : Resource
 {
     public Guid Id { get; set; } = Guid.NewGuid();
     public string Term { get; set; }

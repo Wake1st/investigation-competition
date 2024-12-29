@@ -3,7 +3,7 @@ using Godot;
 public partial class Interactable : Area2D
 {
   [Export]
-  public Clue Clue { get; set; }
+  public ClueNode ClueNode { get; set; }
 
   private Sprite2D icon;
   private Tween iconAnimation;

@@ -1,7 +1,7 @@
 using System;
 using Godot;
 
-public partial class Occurence : GodotObject
+public partial class Occurence : Resource
 {
     public Guid Id { get; set; } = Guid.NewGuid();
     public TimeRange When { get; set; }

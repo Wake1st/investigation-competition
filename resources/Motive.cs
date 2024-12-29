@@ -1,7 +1,7 @@
 using System;
 using Godot;
 
-public partial class Motive : GodotObject
+public partial class Motive : Resource
 {
     public Guid Id { get; set; } = Guid.NewGuid();
     public MotiveStrength Strength { get; set; }

@@ -27,10 +27,10 @@ public partial class EvidenceSlot : Panel
     MouseExited += OnMouseExit;
   }
 
-  public void Setup(Clue clue)
+  public void Setup(ClueNode clueNode)
   {
-    Image.Texture = clue.Image;
-    Description.Text = clue.Description;
+    Image.Texture = clueNode.Image;
+    Description.Text = "clueNode.Clue.Description";
   }
 
   private void OnMouseEnter()

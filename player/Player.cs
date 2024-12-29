@@ -14,12 +14,12 @@ public partial class Player : Node2D
 	const float DEPTH_SPEED = .2f;
 
 	[Signal]
-	public delegate void ClueCollectedEventHandler(Clue clue);
+	public delegate void ClueCollectedEventHandler(ClueNode clueNode);
 
 	private Vector3 coord3D = new(0f, 0f, 0f);
 	private Sprite2D sprite;
 	private InteractionArea interactionArea;
-	private List<Clue> Clues = new();
+	private List<ClueNode> ClueNodes = new();
 
 	public Interactable CollidingInteractable { get; set; } = null;
 
@@ -112,12 +112,12 @@ public partial class Player : Node2D
 	{
 		if (CollidingInteractable != null)
 		{
-			Clue clue = CollidingInteractable.Clue;
-			if (!Clues.Contains(clue))
+			ClueNode clueNode = CollidingInteractable.ClueNode;
+			if (!ClueNodes.Contains(clueNode))
 			{
-				Clues.Add(clue);
-				EmitSignal(SignalName.ClueCollected, clue);
-				GD.Print("Clue collected: ", clue.Name);
+				ClueNodes.Add(clueNode);
+				EmitSignal(SignalName.ClueCollected, clueNode);
+				GD.Print("Clue collected: ", clueNode.Name);
 
 				//	destroy the interactable
 				CollidingInteractable.Destroy();
