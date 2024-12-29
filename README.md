@@ -19,9 +19,9 @@ Collect clues, make deductions, and close your case before the time runs out! Th
   - [ ] `Timeline`: a branching network of `Occurence`
   - [ ] `Evidence`: a list of `Clue`
   - [ ] `Suspects`: a list of `Suspect`
-- [ ] player can visit different `CrimeScene`
+- [ ] levels are a `CrimeScene`
   - [ ] `Room`: a `Location`, connected together with neighboring `Room`s
-  - [ ] `Suspects`: a set of `Suspect`
+  - [ ] `Suspects`: a set of `Suspect` (they've already been round up to be interogated)
   - [ ] `Clue`: a set of `Clue` in each `Room`
 - [ ] `Suspect` has a personal `Timeline` and a `Motive`
   - [ ] `Suspect` has a "true" timeline

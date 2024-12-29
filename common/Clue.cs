@@ -5,6 +5,8 @@ public partial class Clue : Node2D
 {
   [Export]
   public string Id { get; set; }
+  [Export]
+  public string Term { get; set; }
   [Export(PropertyHint.MultilineText)]
   public string Description { get; set; }
   [Export]
