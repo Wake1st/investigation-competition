@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="Clue" load_steps=2 format=3 uid="uid://dilg6if78cb0m"]
+
+[ext_resource type="Script" path="res://resources/clues/Clue.cs" id="1_13lst"]
+
+[resource]
+script = ExtResource("1_13lst")
+Term = "Blackmail Letter"
+Significance = 2
+Description = "An insideous threat to divulge some scandelous secret if a serious payment is not made - how juicy. "

@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="Clue" load_steps=2 format=3 uid="uid://dfg5efq2wm3n7"]
+
+[ext_resource type="Script" path="res://resources/clues/Clue.cs" id="1_5rroh"]
+
+[resource]
+script = ExtResource("1_5rroh")
+Term = "Lip Stick"
+Description = "A silver colored container with burgundy lip stick; it's almost run out."

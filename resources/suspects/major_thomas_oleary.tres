@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Suspect" load_steps=4 format=3 uid="uid://ddws3iioemsgk"]
+
+[ext_resource type="Script" path="res://resources/Motive.cs" id="1_1idfs"]
+[ext_resource type="Script" path="res://resources/suspects/Suspect.cs" id="1_38wnd"]
+
+[sub_resource type="Resource" id="Resource_64wmj"]
+script = ExtResource("1_1idfs")
+Strength = 0
+Desire = 3
+
+[resource]
+script = ExtResource("1_38wnd")
+Name = "Major Thomas O'Leary"
+Description = "Cheerful, radiant, and energetic - the Major was well suited for marching to the military drum, but life as a civilian has proven more difficult; he has many aquaintences but few friends, for he keeps more than military secrets close to his chest - how he longs for the company of comrades now lost to the battlefield. "
+Motive = SubResource("Resource_64wmj")

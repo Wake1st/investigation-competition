@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="Clue" load_steps=2 format=3 uid="uid://d7cwp476jqkf"]
+
+[ext_resource type="Script" path="res://resources/clues/Clue.cs" id="1_uiivi"]
+
+[resource]
+script = ExtResource("1_uiivi")
+Term = "Glasses"
+Description = "Rectangular, reading glasses; they could belong to anyone."

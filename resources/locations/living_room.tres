@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="Location" load_steps=2 format=3 uid="uid://x61rrowaxieu"]
+
+[ext_resource type="Script" path="res://resources/locations/Location.cs" id="1_t6uqt"]
+
+[resource]
+script = ExtResource("1_t6uqt")
+Term = "Living Room"
+Description = "A large room, with couches and chairs arranged near a fireplace along the front wall. There is also a grand piano in the corner nearest the middle of the house, and two large french doors along the side wall which lead into the garden. The inner doors connect to the foyer entry hall and the long side hall."

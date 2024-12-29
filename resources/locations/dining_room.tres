@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="Location" load_steps=2 format=3 uid="uid://xdxuj32b40js"]
+
+[ext_resource type="Script" path="res://resources/locations/Location.cs" id="1_ddkxr"]
+
+[resource]
+script = ExtResource("1_ddkxr")
+Term = "Dining Room"
+Description = "A large, rectangular room , dominated by a lovely, long, cherry wood table. A few credenza's containing expensive looking dishware line the walls of the room. The back wall has two large french doors that lead into the garden. The inner doors connect to the long side hall and the kitchen."
