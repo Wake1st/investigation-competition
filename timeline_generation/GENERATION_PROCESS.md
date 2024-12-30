@@ -2,8 +2,15 @@
 This is a step by step walkthrough to better understand how the timeline generation works.
 
 ## Notes
-- In order to generate `Occurence`s which make sense, we must have a set list of `Action`s performed upon `Clue`s, some being `Location` bound
-  - EX: player can "burry" a `Clue` in the "garden", or "burn" a `Clue` in the "living room" fireplace
+- In order to generate `Occurence`s which make sense
+  - there must be a set list of `Action`s performed upon `Clue`s, some being `Location` bound
+    - EX: player can "burry" a `Clue` in the "garden", or "burn" a `Clue` in the "living room" fireplace
+  - `Suspect`s will change `Location` and take `Action` based on their `Motive`
+    - EX: "Zhou" will falsify an "alibi" `Clue` (`Testimony`?) for "O'Leary" out of "love"
+    - EX: "Zhou" will plant a fake "item" `Clue` near the body out of "revenage" against "Beuregard"
+  - it needs to be easy and logical to understand when all the pieces are in place
+  - it would be best to start with something hand crafted to see how the pieces might be automated best
+
 
 ## Steps
 - [ ] start with a root node: 
