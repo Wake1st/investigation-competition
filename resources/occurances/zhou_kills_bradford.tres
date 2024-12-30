@@ -1,0 +1,41 @@
+[gd_resource type="Resource" script_class="Occurence" load_steps=11 format=3 uid="uid://cnsydoncfidp"]
+
+[ext_resource type="Script" path="res://resources/Action.cs" id="1_nabrr"]
+[ext_resource type="Script" path="res://resources/Occurence.cs" id="1_qjh3e"]
+[ext_resource type="Script" path="res://resources/TimePoint.cs" id="2_ysn1t"]
+[ext_resource type="Script" path="res://resources/TimeRange.cs" id="3_wk6ux"]
+[ext_resource type="Resource" uid="uid://bhqujdybmted4" path="res://resources/locations/library.tres" id="4_nr2eb"]
+
+[sub_resource type="Resource" id="Resource_xx531"]
+script = ExtResource("1_nabrr")
+Term = "Zhou Hits Bradford"
+Description = "While Bradford's back is turned, Zhou picks up the paper weight and strikes his head."
+
+[sub_resource type="Resource" id="Resource_pdrvh"]
+script = ExtResource("1_nabrr")
+Term = "Bradford Dies"
+Description = "Well, he dies."
+
+[sub_resource type="Resource" id="Resource_fhrmr"]
+script = ExtResource("2_ysn1t")
+Hour = 8
+Minute = 50
+Meridiem = 1
+
+[sub_resource type="Resource" id="Resource_rk04w"]
+script = ExtResource("2_ysn1t")
+Hour = 8
+Minute = 40
+Meridiem = 1
+
+[sub_resource type="Resource" id="Resource_rjo0s"]
+script = ExtResource("3_wk6ux")
+Start = SubResource("Resource_rk04w")
+End = SubResource("Resource_fhrmr")
+
+[resource]
+script = ExtResource("1_qjh3e")
+When = SubResource("Resource_rjo0s")
+Where = ExtResource("4_nr2eb")
+Cause = SubResource("Resource_xx531")
+Effect = SubResource("Resource_pdrvh")

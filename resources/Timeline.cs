@@ -1,17 +1,17 @@
+using System;
 using System.Collections.Generic;
 using Godot;
 
+[GlobalClass]
 public partial class Timeline : Resource
 {
-    public string Id { get; set; }
+    [Export]
     public string Name { get; set; }
+    [Export]
     public bool SinglePath { get; set; }
+    [Export]
     public TimelineNode RootNode { get; set; }
     public List<TimelineNode> Nodes { get; set; }
-}
 
-public partial class TimelineNode : Resource
-{
-    public Occurence Occurence { get; set; }
-    public List<Occurence> Neighbors { get; set; }
+    public Guid Id { get; set; } = Guid.NewGuid();
 }
