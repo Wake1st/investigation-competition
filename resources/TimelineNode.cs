@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Godot;
 
@@ -6,5 +7,7 @@ public partial class TimelineNode : Resource
 {
   [Export]
   public Occurence Occurence { get; set; }
-  public List<Occurence> Neighbors { get; set; }
+
+  public Guid Id { get; set; } = Guid.NewGuid();
+  public List<Guid> Neighbors { get; set; }
 }
