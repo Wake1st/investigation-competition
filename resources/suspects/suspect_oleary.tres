@@ -1,15 +1,23 @@
-[gd_resource type="Resource" script_class="Suspect" load_steps=5 format=3 uid="uid://ddws3iioemsgk"]
+[gd_resource type="Resource" script_class="Suspect" load_steps=9 format=3 uid="uid://ddws3iioemsgk"]
 
 [ext_resource type="Script" path="res://resources/Motive.cs" id="1_1idfs"]
 [ext_resource type="Script" path="res://resources/suspects/Suspect.cs" id="1_38wnd"]
 [ext_resource type="Resource" uid="uid://ehgjvfotk5x3" path="res://resources/person/major_thomas_oleary.tres" id="2_ko0wn"]
+[ext_resource type="Resource" uid="uid://i4pih3rqcikp" path="res://resources/occurances/dinner.tres" id="3_xob8n"]
+[ext_resource type="Resource" uid="uid://bpcmg637emb3r" path="res://resources/occurances/beauregard_dances_with_oleary.tres" id="4_8fi2l"]
+[ext_resource type="Script" path="res://resources/Timeline.cs" id="5_sv0rk"]
 
 [sub_resource type="Resource" id="Resource_64wmj"]
 script = ExtResource("1_1idfs")
 Strength = 0
 Desire = 3
 
+[sub_resource type="Resource" id="Resource_j3tn4"]
+script = ExtResource("5_sv0rk")
+Nodes = Array[Object]([ExtResource("3_xob8n"), ExtResource("4_8fi2l")])
+
 [resource]
 script = ExtResource("1_38wnd")
 Person = ExtResource("2_ko0wn")
 Motive = SubResource("Resource_64wmj")
+Timeline = SubResource("Resource_j3tn4")
