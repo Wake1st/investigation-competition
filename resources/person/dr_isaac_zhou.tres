@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="Person" load_steps=2 format=3 uid="uid://cnq2synl4jo0u"]
+
+[ext_resource type="Script" path="res://resources/person/Person.cs" id="1_ed3n5"]
+
+[resource]
+script = ExtResource("1_ed3n5")
+Name = "Dr. Issac Zhou"
+Description = "Cool and calm, Zhou is almost never preturbed. Though they have many degrees, accolades a plenty, and tenure, the subject of their research is a mystery; perhaps more varied than their expertise are the rumours surrounding their clandestine work."

@@ -1,0 +1,28 @@
+[gd_resource type="Resource" script_class="Occurence" load_steps=8 format=3 uid="uid://t5tsmqx5dwrc"]
+
+[ext_resource type="Script" path="res://resources/TimePoint.cs" id="1_vyhwt"]
+[ext_resource type="Script" path="res://resources/TimeRange.cs" id="2_ekaph"]
+[ext_resource type="Resource" uid="uid://bhqujdybmted4" path="res://resources/locations/library.tres" id="3_3il2d"]
+[ext_resource type="Script" path="res://resources/occurances/Occurence.cs" id="4_edj5q"]
+
+[sub_resource type="Resource" id="Resource_msjjd"]
+script = ExtResource("1_vyhwt")
+Hour = 8
+Minute = 40
+Meridiem = 1
+
+[sub_resource type="Resource" id="Resource_jrctd"]
+script = ExtResource("1_vyhwt")
+Hour = 8
+Minute = 10
+Meridiem = 1
+
+[sub_resource type="Resource" id="Resource_mmhhk"]
+script = ExtResource("2_ekaph")
+Start = SubResource("Resource_jrctd")
+End = SubResource("Resource_msjjd")
+
+[resource]
+script = ExtResource("4_edj5q")
+When = SubResource("Resource_mmhhk")
+Where = ExtResource("3_3il2d")

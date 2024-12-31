@@ -9,9 +9,7 @@ public partial class Occurence : Resource
     [Export]
     public Location Where { get; set; }
     [Export]
-    public Action Cause { get; set; }
-    [Export]
-    public Action Effect { get; set; }
+    public Action Action { get; set; }
 
     public Guid Id { get; set; } = Guid.NewGuid();
 }

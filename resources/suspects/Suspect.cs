@@ -5,9 +5,7 @@ using Godot;
 public partial class Suspect : Resource
 {
     [Export]
-    public string Name { get; set; }
-    [Export(PropertyHint.MultilineText)]
-    public string Description { get; set; }
+    public Person Person { get; set; }
     [Export]
     public Motive Motive { get; set; }
     [Export]

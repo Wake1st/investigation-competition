@@ -5,9 +5,7 @@ using Godot;
 public partial class Action : Resource
 {
     [Export]
-    public string Term { get; set; }
-    [Export]
-    public string Description { get; set; }
-
+    public Person Perpetrator { get; set; }
+    
     public Guid Id { get; set; } = Guid.NewGuid();
 }

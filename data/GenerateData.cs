@@ -17,10 +17,10 @@ public static class GenerateData
   public static List<Suspect> Suspects()
   {
     return new List<Suspect>() {
-      new Suspect { Name = "Dr. Zhao", Motive = new Motive { Strength = MotiveStrength.Weak, Desire = MotiveDesire.Power } },
-      new Suspect { Name = "Sam Beauregard", Motive = new Motive { Strength = MotiveStrength.Strong, Desire = MotiveDesire.Love } },
-      new Suspect { Name = "Major O'Leary", Motive = new Motive { Strength = MotiveStrength.Fair, Desire = MotiveDesire.Revenge } },
-      new Suspect { Name = "Sir Bradford", Motive = new Motive { Strength = MotiveStrength.Strong, Desire = MotiveDesire.Money } },
+      new Suspect { Motive = new Motive { Strength = MotiveStrength.Weak, Desire = MotiveDesire.Power } },
+      new Suspect { Motive = new Motive { Strength = MotiveStrength.Strong, Desire = MotiveDesire.Love } },
+      new Suspect { Motive = new Motive { Strength = MotiveStrength.Fair, Desire = MotiveDesire.Revenge } },
+      new Suspect { Motive = new Motive { Strength = MotiveStrength.Strong, Desire = MotiveDesire.Money } },
     };
   }
 

@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="Person" load_steps=2 format=3 uid="uid://cm2fsyjks2vr2"]
+
+[ext_resource type="Script" path="res://resources/person/Person.cs" id="1_hmu20"]
+
+[resource]
+script = ExtResource("1_hmu20")
+Name = "Sam Beauregard"
+Description = "A southern aritocrat with that fake, southern, charm; seemingly sweet, but underhanded at every turn. With deep pockets and even deeper desires, crossing paths with them is worse than wrestling an anaconda."
