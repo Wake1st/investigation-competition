@@ -1,9 +1,16 @@
-[gd_resource type="Resource" script_class="Occurence" load_steps=8 format=3 uid="uid://5l1gog8nkiuq"]
+[gd_resource type="Resource" script_class="Occurence" load_steps=11 format=3 uid="uid://5l1gog8nkiuq"]
 
+[ext_resource type="Resource" uid="uid://cnq2synl4jo0u" path="res://resources/person/dr_isaac_zhou.tres" id="1_j6385"]
 [ext_resource type="Script" path="res://resources/TimePoint.cs" id="2_2odhu"]
+[ext_resource type="Script" path="res://resources/action/DisposeAction.cs" id="2_ye1gj"]
 [ext_resource type="Script" path="res://resources/TimeRange.cs" id="3_y5r7m"]
 [ext_resource type="Resource" uid="uid://nx4xnlfgfd5g" path="res://resources/locations/garden.tres" id="4_mgt5u"]
 [ext_resource type="Script" path="res://resources/occurances/Occurence.cs" id="5_i5yud"]
+
+[sub_resource type="Resource" id="Resource_n684l"]
+script = ExtResource("2_ye1gj")
+Type = 1
+Actor = ExtResource("1_j6385")
 
 [sub_resource type="Resource" id="Resource_wyujj"]
 script = ExtResource("2_2odhu")
@@ -26,3 +33,4 @@ End = SubResource("Resource_wyujj")
 script = ExtResource("5_i5yud")
 When = SubResource("Resource_n36l0")
 Where = ExtResource("4_mgt5u")
+Action = SubResource("Resource_n684l")

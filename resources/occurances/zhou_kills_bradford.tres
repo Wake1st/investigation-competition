@@ -1,6 +1,8 @@
-[gd_resource type="Resource" script_class="Occurence" load_steps=10 format=3 uid="uid://cnsydoncfidp"]
+[gd_resource type="Resource" script_class="Occurence" load_steps=12 format=3 uid="uid://cnsydoncfidp"]
 
+[ext_resource type="Resource" uid="uid://cnq2synl4jo0u" path="res://resources/person/dr_isaac_zhou.tres" id="1_rd3yv"]
 [ext_resource type="Script" path="res://resources/action/KillAction.cs" id="1_xghoj"]
+[ext_resource type="Resource" uid="uid://cy54epmt15cn5" path="res://resources/person/sir_geoffrey_bradford.tres" id="2_bisuj"]
 [ext_resource type="Script" path="res://resources/TimePoint.cs" id="2_ysn1t"]
 [ext_resource type="Script" path="res://resources/TimeRange.cs" id="3_wk6ux"]
 [ext_resource type="Resource" uid="uid://bhqujdybmted4" path="res://resources/locations/library.tres" id="4_nr2eb"]
@@ -8,7 +10,9 @@
 
 [sub_resource type="Resource" id="Resource_wvlj4"]
 script = ExtResource("1_xghoj")
-Type = 0
+Type = 3
+Victim = ExtResource("2_bisuj")
+Actor = ExtResource("1_rd3yv")
 
 [sub_resource type="Resource" id="Resource_fhrmr"]
 script = ExtResource("2_ysn1t")
