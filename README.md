@@ -39,3 +39,4 @@ Collect clues, make deductions, and close your case before the time runs out! Th
 - [ ] `Action`: has an "id", a "term", and a "description"
 - [ ] `Clue`: has an "id", a "term", and a "description"; is `Evidence` or an observation
 - [ ] `Motivation`: has a strength and a desire (money, power, love, revenge)
+- [ ] `Level` data should be auto-generated and scrambled (don't rely on steriotypes - it's unrealistic and easliy predictable)

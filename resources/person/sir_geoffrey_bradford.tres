@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="Person" load_steps=2 format=3 uid="uid://cy54epmt15cn5"]
+
+[ext_resource type="Script" path="res://resources/person/Person.cs" id="1_a6ed0"]
+
+[resource]
+script = ExtResource("1_a6ed0")
+Name = "Sir Geoffrey Bradford the 2nd"
+Description = "Like expensive wine burried deep in the cellar - refined, yet overlooked; his smug ambivalence poorly hides the pain of unrequited respect from a cold hearted father. Years of straining for said respect have coerced the man into making many ill-advised ventures, resulting in considerable financial loss, ever adding to the immeasurable debt of shame he so desperately wishes to pay. "

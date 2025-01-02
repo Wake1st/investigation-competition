@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="Clue" load_steps=2 format=3 uid="uid://dp14nayuffdga"]
+
+[ext_resource type="Script" path="res://resources/clues/Clue.cs" id="1_t57sc"]
+
+[resource]
+script = ExtResource("1_t57sc")
+Term = "Fire Poker"
+Significance = 1
+Description = "A long, iron rod meant for rearranging the contents of a fire."

@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="Location" load_steps=2 format=3 uid="uid://dm6v6it30o0bi"]
+
+[ext_resource type="Script" path="res://resources/locations/Location.cs" id="1_0ompf"]
+
+[resource]
+script = ExtResource("1_0ompf")
+Term = "Foyer"
+Description = "The entranceway, connecting to all the other rooms, listed from the left of entering and going clockwise: living room, dining room, kitchen, and library. There are portraits of prominent, dead, family members. Across from the side with the main entrance, is a long hall, running perpendicular to the entry way; here there are portraits of lesser, dead, family members. This hall separates the living room from the dining room, and the kitchen from the library; there are smaller exits at each end, leading into the surrounding garden. The inner doors in the entry way connect to the living room and library. The inner doors in the long hall connect to the living room, dining room, kitchen, and library."

@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="Clue" load_steps=2 format=3 uid="uid://bkklorpf0rja2"]
+
+[ext_resource type="Script" path="res://resources/clues/Clue.cs" id="1_gcrk1"]
+
+[resource]
+script = ExtResource("1_gcrk1")
+Term = "Romantic Letter"
+Significance = 2
+Description = "Passion drips from every syllable of this errotic outpour. You blush."

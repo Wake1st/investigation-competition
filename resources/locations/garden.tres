@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="Location" load_steps=2 format=3 uid="uid://nx4xnlfgfd5g"]
+
+[ext_resource type="Script" path="res://resources/locations/Location.cs" id="1_2gckg"]
+
+[resource]
+script = ExtResource("1_2gckg")
+Term = "Garden"
+Description = "The garden surrounds the back and sides of the house. It can be accessed via french doors from the living room and dining room, and the two doors from each side of the long foyer side hall."

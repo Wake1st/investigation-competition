@@ -1,6 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://b7ahe1b2hetg6"]
+[gd_scene load_steps=4 format=3 uid="uid://bvjgnkcgi31qc"]
 
-[ext_resource type="Script" path="res://common_scripts/Interactable.cs" id="1_fb01x"]
+[ext_resource type="Script" path="res://sprite_nodes/Interactable.cs" id="1_0ufeq"]
 [ext_resource type="Texture2D" uid="uid://dwc7548120cph" path="res://assets/magnifying glass.png" id="2_hjdov"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6mqvi"]
@@ -9,7 +9,7 @@ height = 100.0
 
 [node name="Interactable" type="Area2D"]
 collision_layer = 0
-script = ExtResource("1_fb01x")
+script = ExtResource("1_0ufeq")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 rotation = 1.5708

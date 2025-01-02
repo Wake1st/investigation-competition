@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="Location" load_steps=2 format=3 uid="uid://bhqujdybmted4"]
+
+[ext_resource type="Script" path="res://resources/locations/Location.cs" id="1_h72uc"]
+
+[resource]
+script = ExtResource("1_h72uc")
+Term = "Library"
+Description = "A small room with a desk and walls lined with books. The inner doors connect to the foyer entry hall and the long side hall. "

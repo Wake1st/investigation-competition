@@ -1,14 +1,10 @@
 using Godot;
 
 [Tool]
-public partial class Clue : Node2D
+public partial class ClueNode : Node2D
 {
   [Export]
-  public string Id { get; set; }
-  [Export]
-  public string Term { get; set; }
-  [Export(PropertyHint.MultilineText)]
-  public string Description { get; set; }
+  public Clue Clue { get; set; }
   [Export]
   public Texture2D Image
   {
@@ -21,7 +17,4 @@ public partial class Clue : Node2D
     }
   }
   private Texture2D image;
-
-
-  private bool isFoux = false;
 }

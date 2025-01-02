@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="Suspect" load_steps=11 format=3 uid="uid://bahg2ehkacabh"]
+
+[ext_resource type="Script" path="res://resources/Motive.cs" id="1_6u07r"]
+[ext_resource type="Script" path="res://resources/suspects/Suspect.cs" id="1_56um7"]
+[ext_resource type="Resource" uid="uid://cnq2synl4jo0u" path="res://resources/person/dr_isaac_zhou.tres" id="2_0n3hr"]
+[ext_resource type="Script" path="res://resources/Timeline.cs" id="2_nnprx"]
+[ext_resource type="Resource" uid="uid://i4pih3rqcikp" path="res://resources/occurances/dinner.tres" id="3_ssxei"]
+[ext_resource type="Resource" uid="uid://t5tsmqx5dwrc" path="res://resources/occurances/bradford_denies_zhou.tres" id="4_tjwno"]
+[ext_resource type="Resource" uid="uid://cnsydoncfidp" path="res://resources/occurances/zhou_kills_bradford.tres" id="5_al28m"]
+[ext_resource type="Resource" uid="uid://5l1gog8nkiuq" path="res://resources/occurances/zhou_hides_murder_weapon.tres" id="6_rkiks"]
+
+[sub_resource type="Resource" id="Resource_sixhd"]
+script = ExtResource("1_6u07r")
+Strength = 1
+Desire = 1
+
+[sub_resource type="Resource" id="Resource_q5dc3"]
+script = ExtResource("2_nnprx")
+Nodes = Array[Object]([ExtResource("3_ssxei"), ExtResource("4_tjwno"), ExtResource("5_al28m"), ExtResource("6_rkiks")])
+
+[resource]
+script = ExtResource("1_56um7")
+Person = ExtResource("2_0n3hr")
+Motive = SubResource("Resource_sixhd")
+Timeline = SubResource("Resource_q5dc3")

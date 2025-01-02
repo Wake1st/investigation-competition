@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="Clue" load_steps=2 format=3 uid="uid://t5f5emw7ckf5"]
+
+[ext_resource type="Script" path="res://resources/clues/Clue.cs" id="1_vece6"]
+
+[resource]
+script = ExtResource("1_vece6")
+Term = "Bust"
+Significance = 1
+Description = "You don't recognise this person - probably a dead, family member."
