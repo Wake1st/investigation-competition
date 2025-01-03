@@ -17,11 +17,13 @@ public partial class Player : Node2D
 	[Signal]
 	public delegate void ClueCollectedEventHandler(ClueNode clueNode);
 
+	[Export]
+	public RoomNode CurrentRoom { get; set; }
+
 	private Vector3 coord3D = new(0f, 0f, 0f);
 	private Sprite2D sprite;
 	private InteractionArea interactionArea;
 	private List<ClueNode> ClueNodes = new();
-	private RoomNode CurrentRoom { get; set; }
 
 	public Interactable CollidingInteractable { get; set; } = null;
 
@@ -85,8 +87,8 @@ public partial class Player : Node2D
 	{
 		//	update coordinates
 		coord3D += new Vector3(movement.X * PLANAR_SPEED, 0.0f, -movement.Y * DEPTH_SPEED) * delta;
-		coord3D.X = Mathf.Clamp(coord3D.X, -COORD3D_CLAMP_X, COORD3D_CLAMP_X);
-		coord3D.Z = Mathf.Clamp(coord3D.Z, -COORD3D_CLAMP_Z, COORD3D_CLAMP_Z);
+		coord3D.X = ClampX(coord3D.X);
+		coord3D.Z = ClampZ(coord3D.Z);
 
 		//	set position
 		float slantHeight = Position.Y - HEIGHT_TO_FOCAL;
@@ -100,6 +102,18 @@ public partial class Player : Node2D
 			flatVerticalMultiplier
 		);
 	}
+
+	private float ClampX(float value) => Mathf.Clamp(
+		value,
+		(CurrentRoom.GlobalPosition.X / MAX_FLOOR_HALF_WIDTH - 1) * COORD3D_CLAMP_X,
+		(CurrentRoom.GlobalPosition.X / MAX_FLOOR_HALF_WIDTH + 1) * COORD3D_CLAMP_X
+	);
+
+	private float ClampZ(float value) => Mathf.Clamp(
+		value,
+		-COORD3D_CLAMP_Z,
+		+COORD3D_CLAMP_Z
+	);
 
 	private void Animate(Vector2 movement)
 	{

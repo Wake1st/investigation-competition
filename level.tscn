@@ -30,7 +30,7 @@ CurrentRoom = NodePath("..")
 ConnectingDoor = NodePath("../../LivingRoom/DoorLivingFoyer")
 
 [node name="Library" parent="." instance=ExtResource("2_a1hnk")]
-position = Vector2(-1059, 0)
+position = Vector2(-1024, 0)
 Location = ExtResource("5_l3jn5")
 Background = ExtResource("3_7n2lo")
 
@@ -40,7 +40,7 @@ CurrentRoom = NodePath("..")
 ConnectingDoor = NodePath("../../Foyer/DoorFoyerLibrary")
 
 [node name="LivingRoom" parent="." instance=ExtResource("2_a1hnk")]
-position = Vector2(1060, 0)
+position = Vector2(1024, 0)
 Location = ExtResource("5_e4l8y")
 Background = ExtResource("3_7n2lo")
 
@@ -49,9 +49,10 @@ position = Vector2(-465, -79)
 CurrentRoom = NodePath("..")
 ConnectingDoor = NodePath("../../Foyer/DoorFoyerLiving")
 
-[node name="Player" parent="." instance=ExtResource("2_srm2y")]
+[node name="Player" parent="." node_paths=PackedStringArray("CurrentRoom") instance=ExtResource("2_srm2y")]
 unique_name_in_owner = true
 scale = Vector2(1.5, 1.5)
+CurrentRoom = NodePath("../Foyer")
 
 [node name="Inventory" parent="." instance=ExtResource("6_0ge13")]
 anchors_preset = 0
