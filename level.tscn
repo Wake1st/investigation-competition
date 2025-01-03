@@ -11,7 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://dj83hfapuo3fs" path="res://sprite_nodes/interactables/door_interactable.tscn" id="5_odso0"]
 [ext_resource type="PackedScene" uid="uid://dbguthovey4pg" path="res://ui/inventory.tscn" id="6_0ge13"]
 [ext_resource type="Resource" uid="uid://dsotwsxwxlvox" path="res://resources/clues/wallet.tres" id="8_6338u"]
-[ext_resource type="PackedScene" uid="uid://dcdvhdqvahwwr" path="res://sprite_nodes/clue_interactable.tscn" id="10_ek74m"]
+[ext_resource type="PackedScene" uid="uid://cfakgraxkjeth" path="res://sprite_nodes/interactables/clue_interactable.tscn" id="9_ydd0p"]
 
 [node name="Level" type="Node"]
 
@@ -26,7 +26,6 @@ ConnectingDoor = NodePath("../../Library/DoorLibraryFoyer")
 
 [node name="DoorFoyerLiving" parent="Foyer" node_paths=PackedStringArray("CurrentRoom", "ConnectingDoor") instance=ExtResource("5_odso0")]
 position = Vector2(465, -79)
-FlipDoor = false
 CurrentRoom = NodePath("..")
 ConnectingDoor = NodePath("../../LivingRoom/DoorLivingFoyer")
 
@@ -37,7 +36,6 @@ Background = ExtResource("3_7n2lo")
 
 [node name="DoorLibraryFoyer" parent="Library" node_paths=PackedStringArray("CurrentRoom", "ConnectingDoor") instance=ExtResource("5_odso0")]
 position = Vector2(465, -79)
-FlipDoor = false
 CurrentRoom = NodePath("..")
 ConnectingDoor = NodePath("../../Foyer/DoorFoyerLibrary")
 
@@ -64,8 +62,9 @@ offset_bottom = 240.0
 grow_horizontal = 1
 grow_vertical = 1
 
-[node name="ClueInteractable" parent="." instance=ExtResource("10_ek74m")]
+[node name="ClueInteractable" parent="." node_paths=PackedStringArray("ClueNode") instance=ExtResource("9_ydd0p")]
 position = Vector2(-321, -71)
+ClueNode = NodePath("Wallet")
 
 [node name="Wallet" parent="ClueInteractable" instance=ExtResource("3_4xh2n")]
 Clue = ExtResource("8_6338u")

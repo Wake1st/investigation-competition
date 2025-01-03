@@ -11,7 +11,8 @@ public partial class DoorInteractable : Interactable
     set
     {
       flipDoor = !flipDoor;
-      GetNode<Sprite2D>("Image").FlipV = flipDoor;
+      if (HasNode("Image"))
+        GetNode<Sprite2D>("Image").FlipV = flipDoor;
     }
   }
   private bool flipDoor;

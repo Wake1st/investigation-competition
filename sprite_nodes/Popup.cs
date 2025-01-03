@@ -1,5 +1,6 @@
 using Godot;
 
+[Tool]
 public partial class Popup : Sprite2D
 {
 
@@ -12,28 +13,26 @@ public partial class Popup : Sprite2D
   {
     base._Ready();
 
-    icon = GetNode<Sprite2D>("Icon");
-
-    iconAnimationTimer = GetNode<Timer>("Icon/Timer");
+    iconAnimationTimer = GetNode<Timer>("Timer");
     iconAnimationTimer.Timeout += OnAnimationEnd;
   }
 
   public void On()
   {
-    icon.Visible = true;
+    Visible = true;
     iconAnimation = CreateTween();
-    iconAnimation.TweenProperty(icon, "position", icon.Position + new Vector2(0f, -64f), iconAnimationDuration);
+    iconAnimation.TweenProperty(this, "position", Position + new Vector2(0f, -64f), iconAnimationDuration);
   }
 
   public void Off()
   {
     iconAnimation = CreateTween();
-    iconAnimation.TweenProperty(icon, "position", icon.Position + new Vector2(0f, 64f), iconAnimationDuration);
+    iconAnimation.TweenProperty(this, "position", Position + new Vector2(0f, 64f), iconAnimationDuration);
     iconAnimationTimer.Start(iconAnimationDuration);
   }
 
   private void OnAnimationEnd()
   {
-    icon.Visible = false;
+    Visible = false;
   }
 }

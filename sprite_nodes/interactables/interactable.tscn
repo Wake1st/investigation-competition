@@ -1,8 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://bvjgnkcgi31qc"]
+[gd_scene load_steps=4 format=3 uid="uid://cyu3pmpiaoj7o"]
 
-[ext_resource type="Script" path="res://sprite_nodes/Interactable.cs" id="1_0ufeq"]
+[ext_resource type="Script" path="res://sprite_nodes/interactables/Interactable.cs" id="1_h406n"]
 [ext_resource type="PackedScene" uid="uid://c8cbt2fruq53j" path="res://sprite_nodes/popup.tscn" id="2_cig5j"]
-[ext_resource type="Texture2D" uid="uid://dwc7548120cph" path="res://assets/magnifying glass.png" id="2_hjdov"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6mqvi"]
 radius = 20.0
@@ -10,7 +9,7 @@ height = 100.0
 
 [node name="Interactable" type="Area2D"]
 collision_layer = 0
-script = ExtResource("1_0ufeq")
+script = ExtResource("1_h406n")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 rotation = 1.5708
@@ -18,7 +17,6 @@ shape = SubResource("CapsuleShape2D_6mqvi")
 debug_color = Color(0, 0.62, 0.93, 0.501961)
 
 [node name="Popup" parent="." instance=ExtResource("2_cig5j")]
-texture = ExtResource("2_hjdov")
 
 [connection signal="body_entered" from="." to="." method="OnBodyEntered"]
 [connection signal="body_exited" from="." to="." method="OnBodyExited"]
