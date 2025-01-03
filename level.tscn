@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://cf2oavywn6o6g"]
+[gd_scene load_steps=12 format=3 uid="uid://cf2oavywn6o6g"]
 
 [ext_resource type="PackedScene" uid="uid://c4nvgx02smh0l" path="res://sprite_nodes/room_node.tscn" id="2_a1hnk"]
 [ext_resource type="PackedScene" uid="uid://dq21tc0ehopgn" path="res://player/player.tscn" id="2_srm2y"]
@@ -9,7 +9,6 @@
 [ext_resource type="Resource" uid="uid://x61rrowaxieu" path="res://resources/locations/living_room.tres" id="5_e4l8y"]
 [ext_resource type="Resource" uid="uid://bhqujdybmted4" path="res://resources/locations/library.tres" id="5_l3jn5"]
 [ext_resource type="PackedScene" uid="uid://dj83hfapuo3fs" path="res://sprite_nodes/interactables/door_interactable.tscn" id="5_odso0"]
-[ext_resource type="PackedScene" uid="uid://dbguthovey4pg" path="res://ui/inventory.tscn" id="6_0ge13"]
 [ext_resource type="Resource" uid="uid://dsotwsxwxlvox" path="res://resources/clues/wallet.tres" id="8_6338u"]
 [ext_resource type="PackedScene" uid="uid://cfakgraxkjeth" path="res://sprite_nodes/interactables/clue_interactable.tscn" id="9_ydd0p"]
 
@@ -54,15 +53,6 @@ unique_name_in_owner = true
 scale = Vector2(1.5, 1.5)
 CurrentRoom = NodePath("../Foyer")
 
-[node name="Inventory" parent="." instance=ExtResource("6_0ge13")]
-anchors_preset = 0
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_top = 240.0
-offset_bottom = 240.0
-grow_horizontal = 1
-grow_vertical = 1
-
 [node name="ClueInteractable" parent="." node_paths=PackedStringArray("ClueNode") instance=ExtResource("9_ydd0p")]
 position = Vector2(-321, -71)
 ClueNode = NodePath("Wallet")
@@ -70,6 +60,3 @@ ClueNode = NodePath("Wallet")
 [node name="Wallet" parent="ClueInteractable" instance=ExtResource("3_4xh2n")]
 Clue = ExtResource("8_6338u")
 Image = ExtResource("4_g0j56")
-
-[node name="Camera2D" type="Camera2D" parent="."]
-offset = Vector2(0, -224)
