@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://s24axi51mhin"]
+[gd_scene load_steps=5 format=3 uid="uid://bvjgnkcgi31qc"]
 
 [ext_resource type="Script" path="res://sprite_nodes/Interactable.cs" id="1_0ufeq"]
 [ext_resource type="PackedScene" uid="uid://c8cbt2fruq53j" path="res://sprite_nodes/popup.tscn" id="2_cig5j"]

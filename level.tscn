@@ -1,17 +1,55 @@
-[gd_scene load_steps=8 format=3 uid="uid://cf2oavywn6o6g"]
+[gd_scene load_steps=13 format=3 uid="uid://cf2oavywn6o6g"]
 
-[ext_resource type="Script" path="res://Level.cs" id="1_5kw3u"]
-[ext_resource type="PackedScene" uid="uid://bfybj5id4p60j" path="res://room.tscn" id="1_j0c4n"]
+[ext_resource type="PackedScene" uid="uid://c4nvgx02smh0l" path="res://sprite_nodes/room_node.tscn" id="2_a1hnk"]
 [ext_resource type="PackedScene" uid="uid://dq21tc0ehopgn" path="res://player/player.tscn" id="2_srm2y"]
+[ext_resource type="Resource" uid="uid://dm6v6it30o0bi" path="res://resources/locations/foyer.tres" id="3_2pwan"]
 [ext_resource type="PackedScene" uid="uid://6xux820t2jh0" path="res://sprite_nodes/clue_node.tscn" id="3_4xh2n"]
+[ext_resource type="Texture2D" uid="uid://dkhhi5nmxyn6u" path="res://assets/room.png" id="3_7n2lo"]
 [ext_resource type="Texture2D" uid="uid://ixudkvc0uvr" path="res://assets/wallet.png" id="4_g0j56"]
-[ext_resource type="PackedScene" uid="uid://bvjgnkcgi31qc" path="res://sprite_nodes/interactable.tscn" id="5_u17rx"]
+[ext_resource type="Resource" uid="uid://x61rrowaxieu" path="res://resources/locations/living_room.tres" id="5_e4l8y"]
+[ext_resource type="Resource" uid="uid://bhqujdybmted4" path="res://resources/locations/library.tres" id="5_l3jn5"]
+[ext_resource type="PackedScene" uid="uid://dj83hfapuo3fs" path="res://sprite_nodes/interactables/door_interactable.tscn" id="5_odso0"]
 [ext_resource type="PackedScene" uid="uid://dbguthovey4pg" path="res://ui/inventory.tscn" id="6_0ge13"]
+[ext_resource type="Resource" uid="uid://dsotwsxwxlvox" path="res://resources/clues/wallet.tres" id="8_6338u"]
+[ext_resource type="PackedScene" uid="uid://dcdvhdqvahwwr" path="res://sprite_nodes/clue_interactable.tscn" id="10_ek74m"]
 
 [node name="Level" type="Node"]
-script = ExtResource("1_5kw3u")
 
-[node name="Room" parent="." instance=ExtResource("1_j0c4n")]
+[node name="Foyer" parent="." instance=ExtResource("2_a1hnk")]
+Location = ExtResource("3_2pwan")
+Background = ExtResource("3_7n2lo")
+
+[node name="DoorFoyerLibrary" parent="Foyer" node_paths=PackedStringArray("CurrentRoom", "ConnectingDoor") instance=ExtResource("5_odso0")]
+position = Vector2(-465, -79)
+CurrentRoom = NodePath("..")
+ConnectingDoor = NodePath("../../Library/DoorLibraryFoyer")
+
+[node name="DoorFoyerLiving" parent="Foyer" node_paths=PackedStringArray("CurrentRoom", "ConnectingDoor") instance=ExtResource("5_odso0")]
+position = Vector2(465, -79)
+FlipDoor = false
+CurrentRoom = NodePath("..")
+ConnectingDoor = NodePath("../../LivingRoom/DoorLivingFoyer")
+
+[node name="Library" parent="." instance=ExtResource("2_a1hnk")]
+position = Vector2(-1059, 0)
+Location = ExtResource("5_l3jn5")
+Background = ExtResource("3_7n2lo")
+
+[node name="DoorLibraryFoyer" parent="Library" node_paths=PackedStringArray("CurrentRoom", "ConnectingDoor") instance=ExtResource("5_odso0")]
+position = Vector2(465, -79)
+FlipDoor = false
+CurrentRoom = NodePath("..")
+ConnectingDoor = NodePath("../../Foyer/DoorFoyerLibrary")
+
+[node name="LivingRoom" parent="." instance=ExtResource("2_a1hnk")]
+position = Vector2(1060, 0)
+Location = ExtResource("5_e4l8y")
+Background = ExtResource("3_7n2lo")
+
+[node name="DoorLivingFoyer" parent="LivingRoom" node_paths=PackedStringArray("CurrentRoom", "ConnectingDoor") instance=ExtResource("5_odso0")]
+position = Vector2(-465, -79)
+CurrentRoom = NodePath("..")
+ConnectingDoor = NodePath("../../Foyer/DoorFoyerLiving")
 
 [node name="Player" parent="." instance=ExtResource("2_srm2y")]
 unique_name_in_owner = true
@@ -26,10 +64,11 @@ offset_bottom = 240.0
 grow_horizontal = 1
 grow_vertical = 1
 
-[node name="Interactable" parent="." instance=ExtResource("5_u17rx")]
-
-[node name="Wallet" parent="Interactable" instance=ExtResource("3_4xh2n")]
+[node name="ClueInteractable" parent="." instance=ExtResource("10_ek74m")]
 position = Vector2(-321, -71)
+
+[node name="Wallet" parent="ClueInteractable" instance=ExtResource("3_4xh2n")]
+Clue = ExtResource("8_6338u")
 Image = ExtResource("4_g0j56")
 
 [node name="Camera2D" type="Camera2D" parent="."]

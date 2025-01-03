@@ -1,0 +1,23 @@
+[gd_scene load_steps=6 format=3 uid="uid://dj83hfapuo3fs"]
+
+[ext_resource type="Script" path="res://sprite_nodes/interactables/DoorInteractable.cs" id="1_1ofh7"]
+[ext_resource type="Texture2D" uid="uid://bdlmb1wvc0f60" path="res://assets/door.png" id="1_pbvv4"]
+[ext_resource type="PackedScene" uid="uid://c8cbt2fruq53j" path="res://sprite_nodes/popup.tscn" id="2_ek4w2"]
+[ext_resource type="Texture2D" uid="uid://hh43mlvsr31a" path="res://assets/open.png" id="3_su4gg"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6ub2m"]
+size = Vector2(44, 240)
+
+[node name="DoorInteractable" type="Area2D"]
+script = ExtResource("1_1ofh7")
+FlipDoor = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_6ub2m")
+
+[node name="Image" type="Sprite2D" parent="."]
+texture = ExtResource("1_pbvv4")
+flip_v = true
+
+[node name="Popup" parent="." instance=ExtResource("2_ek4w2")]
+texture = ExtResource("3_su4gg")

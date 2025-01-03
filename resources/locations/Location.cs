@@ -1,6 +1,7 @@
 using System;
 using Godot;
 
+[Tool]
 [GlobalClass]
 public partial class Location : Resource
 {
@@ -8,6 +9,6 @@ public partial class Location : Resource
     public string Term { get; set; }
     [Export(PropertyHint.MultilineText)]
     public string Description { get; set; }
-    
+
     public Guid Id { get; set; } = Guid.NewGuid();
 }

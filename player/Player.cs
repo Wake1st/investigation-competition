@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Godot;
 
@@ -20,6 +21,7 @@ public partial class Player : Node2D
 	private Sprite2D sprite;
 	private InteractionArea interactionArea;
 	private List<ClueNode> ClueNodes = new();
+	private RoomNode CurrentRoom { get; set; }
 
 	public Interactable CollidingInteractable { get; set; } = null;
 
@@ -112,17 +114,37 @@ public partial class Player : Node2D
 	{
 		if (CollidingInteractable != null)
 		{
-			ClueNode clueNode = CollidingInteractable.ClueNode;
-			if (!ClueNodes.Contains(clueNode))
+			switch (CollidingInteractable.GetType().ToString())
 			{
-				ClueNodes.Add(clueNode);
-				EmitSignal(SignalName.ClueCollected, clueNode);
-				GD.Print("Clue collected: ", clueNode.Name);
+				case "ClueInteractable":
+					ClueInteractable clueInteractable = (ClueInteractable)CollidingInteractable;
 
-				//	destroy the interactable
-				CollidingInteractable.Destroy();
-				CollidingInteractable = null;
+					//	pick up the clue
+					ClueNode clueNode = clueInteractable.ClueNode;
+					if (!ClueNodes.Contains(clueNode))
+					{
+						ClueNodes.Add(clueNode);
+						EmitSignal(SignalName.ClueCollected, clueNode);
+						GD.Print("Clue collected: ", clueNode.Name);
+
+						//	destroy the interactable
+						clueInteractable.Destroy();
+					}
+
+					break;
+				case "DoorInteractable":
+					DoorInteractable doorInteractable = (DoorInteractable)CollidingInteractable;
+
+					//	change rooms
+					CurrentRoom = doorInteractable.ConnectingDoor.CurrentRoom;
+					GlobalPosition = doorInteractable.ConnectingDoor.GlobalPosition;
+
+					break;
+				default:
+					throw new Exception($"Interactable type not recognised: {CollidingInteractable}");
 			}
+
+			CollidingInteractable = null;
 		}
 	}
 }
