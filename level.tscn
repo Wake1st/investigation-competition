@@ -25,6 +25,7 @@ ConnectingDoor = NodePath("../../Library/DoorLibraryFoyer")
 
 [node name="DoorFoyerLiving" parent="Foyer" node_paths=PackedStringArray("CurrentRoom", "ConnectingDoor") instance=ExtResource("5_odso0")]
 position = Vector2(465, -79)
+FlipDoor = false
 CurrentRoom = NodePath("..")
 ConnectingDoor = NodePath("../../LivingRoom/DoorLivingFoyer")
 
@@ -35,6 +36,7 @@ Background = ExtResource("3_7n2lo")
 
 [node name="DoorLibraryFoyer" parent="Library" node_paths=PackedStringArray("CurrentRoom", "ConnectingDoor") instance=ExtResource("5_odso0")]
 position = Vector2(465, -79)
+FlipDoor = false
 CurrentRoom = NodePath("..")
 ConnectingDoor = NodePath("../../Foyer/DoorFoyerLibrary")
 
@@ -54,7 +56,7 @@ scale = Vector2(1.5, 1.5)
 CurrentRoom = NodePath("../Foyer")
 
 [node name="ClueInteractable" parent="." node_paths=PackedStringArray("ClueNode") instance=ExtResource("9_ydd0p")]
-position = Vector2(-321, -71)
+position = Vector2(-240, -96)
 ClueNode = NodePath("Wallet")
 
 [node name="Wallet" parent="ClueInteractable" instance=ExtResource("3_4xh2n")]

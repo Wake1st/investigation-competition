@@ -1,0 +1,26 @@
+[gd_scene load_steps=2 format=3 uid="uid://mv6otw7a6do3"]
+
+[ext_resource type="Script" path="res://dev/SppScheme.cs" id="1_ba01m"]
+
+[node name="SPPScheme" type="Node2D"]
+script = ExtResource("1_ba01m")
+
+[node name="LeftLine" type="Line2D" parent="."]
+points = PackedVector2Array(0, 0, -512, 866)
+default_color = Color(0.1656, 0.442213, 0.92, 0.317647)
+
+[node name="RightLine" type="Line2D" parent="."]
+points = PackedVector2Array(0, 0, 512, 866)
+default_color = Color(0.1656, 0.442213, 0.92, 0.317647)
+
+[node name="FrontalLeft" type="Node2D" parent="."]
+position = Vector2(-323, 546)
+
+[node name="PictureLeft" type="Node2D" parent="."]
+position = Vector2(-512, 866)
+
+[node name="FrontalRight" type="Node2D" parent="."]
+position = Vector2(323, 546)
+
+[node name="PictureRight" type="Node2D" parent="."]
+position = Vector2(512, 866)
