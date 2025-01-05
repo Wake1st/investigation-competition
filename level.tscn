@@ -43,9 +43,10 @@ position = Vector2(-465, -79)
 CurrentRoom = NodePath("..")
 ConnectingDoor = NodePath("../../Foyer/DoorFoyerLiving")
 
-[node name="Player" parent="." instance=ExtResource("2_srm2y")]
+[node name="Player" parent="." node_paths=PackedStringArray("CurrentRoom") instance=ExtResource("2_srm2y")]
 unique_name_in_owner = true
 scale = Vector2(1.5, 1.5)
+CurrentRoom = NodePath("../Foyer")
 
 [node name="ClueInteractable" parent="." node_paths=PackedStringArray("ClueNode") instance=ExtResource("9_ydd0p")]
 position = Vector2(-240, -96)

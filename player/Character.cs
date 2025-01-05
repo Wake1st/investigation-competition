@@ -91,34 +91,30 @@ public partial class Character : Node2D
   private void Move(Vector2 movement, float delta)
   {
     //	update coordinates
+    Vector3 previousCoord3D = coord3D;
     coord3D += new Vector3(movement.X * PLANAR_SPEED, 0.0f, -movement.Y * DEPTH_SPEED) * delta;
-    coord3D.X = ClampX(coord3D.X);
-    coord3D.Z = ClampZ(coord3D.Z);
 
     //	set position
     float slantHeight = Position.Y - HEIGHT_TO_FOCAL;
     float slantWidth = Mathf.Lerp(0, MAX_FLOOR_HALF_WIDTH, slantHeight);
     float flatHorizontalMultiplier = slantWidth / MID_FLOOR_HALF_WIDTH;
     float slatRatio = Mathf.Abs(slantWidth / slantHeight);
-
     float flatVerticalMultiplier = coord3D.Z * slatRatio;
-    Position = new(
+
+    //  reset the 3D coords if there is clamping
+    Vector2 updatedPosition = new(
       coord3D.X * flatHorizontalMultiplier,
       flatVerticalMultiplier
     );
+    Vector2 clampedPosition = CurrentRoom.ClampWithinBoundaries(updatedPosition);
+    if (updatedPosition != clampedPosition)
+    {
+      coord3D = previousCoord3D;
+    }
+
+    //  finally, set the position
+    Position = clampedPosition;
   }
-
-  private float ClampX(float value) => Mathf.Clamp(
-    value,
-    -COORD3D_CLAMP_X,
-    +COORD3D_CLAMP_X
-  );
-
-  private float ClampZ(float value) => Mathf.Clamp(
-    value,
-    -COORD3D_CLAMP_Z,
-    +COORD3D_CLAMP_Z
-  );
 
   private void Animate(Vector2 movement)
   {

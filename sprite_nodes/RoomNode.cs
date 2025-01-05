@@ -18,11 +18,14 @@ public partial class RoomNode : Node2D
   }
   private Texture2D background;
 
-  public SppScheme SppScheme { get; set; }
+  private SppSchema SppSchema { get; set; }
 
   public override void _Ready()
   {
     base._Ready();
-    SppScheme = GetNode<SppScheme>("SppScheme");
+    SppSchema = GetNode<SppSchema>("SPPSchema");
   }
+
+  public Vector2 ClampWithinBoundaries(Vector2 position) =>
+    SppSchema.ClampWithinBoundaries(position);
 }

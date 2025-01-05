@@ -2,41 +2,42 @@
 
 [ext_resource type="Script" path="res://sprite_nodes/RoomNode.cs" id="1_gsmo6"]
 [ext_resource type="Texture2D" uid="uid://dkhhi5nmxyn6u" path="res://assets/room.png" id="2_khlwn"]
-[ext_resource type="PackedScene" uid="uid://mv6otw7a6do3" path="res://dev/spp_scheme.tscn" id="2_onicu"]
+[ext_resource type="PackedScene" uid="uid://di3gssim7d5py" path="res://dev/spp_schema.tscn" id="2_onicu"]
 
 [node name="RoomNode" type="Node2D"]
 script = ExtResource("1_gsmo6")
 Background = ExtResource("2_khlwn")
 
 [node name="Image" type="Sprite2D" parent="."]
+texture_filter = 1
 texture = ExtResource("2_khlwn")
 offset = Vector2(0, -224)
 
-[node name="SPPScheme" parent="." instance=ExtResource("2_onicu")]
+[node name="SPPSchema" parent="." instance=ExtResource("2_onicu")]
 position = Vector2(0, -674)
 
-[node name="LeftLine" parent="SPPScheme" index="0"]
+[node name="LeftLine" parent="SPPSchema" index="0"]
 points = PackedVector2Array(0, 0, -511.649, 770)
 
-[node name="RightLine" parent="SPPScheme" index="1"]
+[node name="RightLine" parent="SPPSchema" index="1"]
 points = PackedVector2Array(0, 0, 511.649, 770)
 
-[node name="FrontalLine" parent="SPPScheme" index="2"]
+[node name="FrontalLine" parent="SPPSchema" index="2"]
 points = PackedVector2Array(-384.069, 578, 384.069, 578)
 
-[node name="PictureLine" parent="SPPScheme" index="3"]
+[node name="PictureLine" parent="SPPSchema" index="3"]
 points = PackedVector2Array(-511.649, 770, 511.649, 770)
 
-[node name="FrontalLeft" parent="SPPScheme" index="4"]
+[node name="FrontalLeft" parent="SPPSchema" index="4"]
 position = Vector2(-384.069, 578)
 
-[node name="PictureLeft" parent="SPPScheme" index="5"]
+[node name="PictureLeft" parent="SPPSchema" index="5"]
 position = Vector2(-511.649, 770)
 
-[node name="FrontalRight" parent="SPPScheme" index="6"]
+[node name="FrontalRight" parent="SPPSchema" index="6"]
 position = Vector2(384.069, 578)
 
-[node name="PictureRight" parent="SPPScheme" index="7"]
+[node name="PictureRight" parent="SPPSchema" index="7"]
 position = Vector2(511.649, 770)
 
-[editable path="SPPScheme"]
+[editable path="SPPSchema"]
