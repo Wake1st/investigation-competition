@@ -1,10 +1,8 @@
-[gd_resource type="Resource" script_class="Suspect" load_steps=9 format=3 uid="uid://bkxio36w1e1yl"]
+[gd_resource type="Resource" script_class="Suspect" load_steps=7 format=3 uid="uid://bkxio36w1e1yl"]
 
 [ext_resource type="Script" path="res://resources/Motive.cs" id="1_3nfg6"]
 [ext_resource type="Script" path="res://resources/suspects/Suspect.cs" id="1_q61q4"]
 [ext_resource type="Resource" uid="uid://cm2fsyjks2vr2" path="res://resources/person/sam_beauregard.tres" id="2_fuw12"]
-[ext_resource type="Resource" uid="uid://i4pih3rqcikp" path="res://resources/occurances/dinner.tres" id="3_ek0ij"]
-[ext_resource type="Resource" uid="uid://bpcmg637emb3r" path="res://resources/occurances/beauregard_dances_with_oleary.tres" id="4_d605n"]
 [ext_resource type="Script" path="res://resources/Timeline.cs" id="4_owcmk"]
 
 [sub_resource type="Resource" id="Resource_xkq0h"]
@@ -14,7 +12,7 @@ Desire = 2
 
 [sub_resource type="Resource" id="Resource_csjtr"]
 script = ExtResource("4_owcmk")
-Nodes = Array[Object]([ExtResource("3_ek0ij"), ExtResource("4_d605n")])
+Nodes = null
 
 [resource]
 script = ExtResource("1_q61q4")
