@@ -5,93 +5,100 @@ using Godot;
 public partial class SppScheme : Node2D
 {
   [Export]
-  public Node2D FrontalLeft
-  {
-    get => frontalLeft;
-    set
-    {
-      Vector2 position = frontalLeft.Position;
-      frontalLeft = value;
-      frontalLeft.Position = position;
-    }
-  }
-  private Node2D frontalLeft = new Node2D();
+  public bool VerticalSymetry { get; set; }
   [Export]
-  public Node2D FrontalRight
-  {
-    get => frontalRight;
-    set
-    {
-      Vector2 position = frontalRight.Position;
-      frontalRight = value;
-      frontalRight.Position = position;
-    }
-  }
-  private Node2D frontalRight = new Node2D();
+  public AnchorPoint FrontalLeft { get; set; }
   [Export]
-  public Node2D PictureLeft
+  public AnchorPoint FrontalRight { get; set; }
+  [Export]
+  public AnchorPoint PictureLeft { get; set; }
+  [Export]
+  public AnchorPoint PictureRight { get; set; }
+
+  [Export]
+  public Line2D LeftSide { get; set; }
+  [Export]
+  public Line2D RightSide { get; set; }
+  [Export]
+  public Line2D FrontalLine { get; set; }
+  [Export]
+  public Line2D PictureLine { get; set; }
+
+  public override void _Process(double delta)
   {
-    get => pictureLeft;
-    set
-    {
-      GD.Print("picture left");
-      if (HasNode("FrontalLeft"))
-      {
-        pictureLeft = value;
-        NotifyPropertyListChanged();
+    base._Process(delta);
+
+    if (Engine.IsEditorHint()) {
+      if (PictureLeft.CheckDelta() != Vector2.Zero) {
+        GD.Print("picture left moved");
 
         //  move the frontal node on this side
-        Vector2 position = GetNode<Node2D>("FrontalLeft").Position;
-        float newX = pictureLeft.Position.X / pictureLeft.Position.Y * position.Y;
-        GetNode<Node2D>("FrontalLeft").Position = new Vector2(newX, position.Y);
+        RepositionPlanarPartner(PictureLeft, PictureRight);
+        RepositionSidePartner(PictureLeft, FrontalLeft);
+        RepositionSidePartner(PictureRight, FrontalRight);
 
-        //  move the line on this side
-        GetNode<Line2D>("LeftLine").SetPointPosition(1, pictureLeft.Position);
+        //  move the connecting lines
+        RepositionLines();
+      } else if (PictureRight.CheckDelta() != Vector2.Zero) {
+        GD.Print("picture right moved");
+
+        //  move the frontal node on this side
+        RepositionPlanarPartner(PictureRight, PictureLeft);
+        RepositionSidePartner(PictureRight, FrontalRight);
+        RepositionSidePartner(PictureLeft, FrontalLeft);
+
+        //  move the connecting lines
+        RepositionLines();
+      } else if (FrontalLeft.CheckDelta() != Vector2.Zero) {
+        GD.Print("frontal left moved");
+
+        //  move the picture node on this side
+        RepositionPlanarPartner(FrontalLeft, FrontalRight);
+        RepositionSidePartner(FrontalLeft, PictureLeft);
+        RepositionSidePartner(FrontalRight, PictureRight);
+
+        //  move the connecting lines
+        RepositionLines();
+      } else if (FrontalRight.CheckDelta() != Vector2.Zero) {
+        GD.Print("frontal right moved");
+
+        //  move the frontal node on this side
+        RepositionPlanarPartner(FrontalRight, FrontalLeft);
+        RepositionSidePartner(FrontalRight, PictureRight);
+        RepositionSidePartner(FrontalLeft, PictureLeft);
+
+        //  move the connecting lines
+        RepositionLines();
       }
     }
   }
-  private Node2D pictureLeft = new Node2D();
-  [Export]
-  public Node2D PictureRight
-  {
-    get => pictureRight;
-    set
-    {
-      GD.Print("picture right");
-      if (HasNode("FrontalRight"))
-      {
-        pictureRight = value;
-        NotifyPropertyListChanged();
 
-        //  move the frontal node on this side
-        Vector2 position = GetNode<Node2D>("FrontalRight").Position;
-        float newX = pictureRight.Position.X / pictureRight.Position.Y * position.Y;
-        GetNode<Node2D>("FrontalRight").Position = new Vector2(newX, position.Y);
-
-        //  move the line on this side
-        GetNode<Line2D>("RightLine").SetPointPosition(1, pictureRight.Position);
-      }
-    }
-  }
-  private Node2D pictureRight = new Node2D();
-
-  public override void _Ready()
-  {
-    base._Ready();
-
-    FrontalLeft = GetNode<Node2D>("FrontalLeft");
-    PictureLeft = GetNode<Node2D>("PictureLeft");
-    FrontalRight = GetNode<Node2D>("FrontalRight");
-    PictureRight = GetNode<Node2D>("PictureRight");
-
-    FrontalLeft.ItemRectChanged += OnRectChanged;
-    PictureLeft.ItemRectChanged += OnRectChanged;
-    FrontalRight.ItemRectChanged += OnRectChanged;
-    PictureRight.ItemRectChanged += OnRectChanged;
+  private void RepositionSidePartner(AnchorPoint node, AnchorPoint partner) {
+    Vector2 position = partner.Position;
+    float newX = node.Position.X / node.Position.Y * position.Y;
+    partner.Reposition(new Vector2(newX, position.Y));
   }
 
-  public void OnRectChanged()
-  {
-    GD.Print("Rect changed");
+  private void RepositionPlanarPartner(AnchorPoint node, AnchorPoint partner) {
+    partner.Reposition(new Vector2(-node.Position.X, node.Position.Y));
+  }
+
+  private void ReevaluatePosition(AnchorPoint pictureNode, AnchorPoint frontalNode, Line2D sideLine, bool leftSide) {
+    //  get the side index
+    int sideIndex = leftSide ? 0 : 1;
+
+    //  move the connecting lines
+    sideLine.SetPointPosition(1, pictureNode.Position);
+    FrontalLine.SetPointPosition(sideIndex, frontalNode.Position);
+    PictureLine.SetPointPosition(sideIndex, pictureNode.Position);
+  }
+
+  private void RepositionLines() {
+    LeftSide.SetPointPosition(1, PictureLeft.Position);
+    RightSide.SetPointPosition(1, PictureRight.Position);
+    FrontalLine.SetPointPosition(0, FrontalLeft.Position);
+    PictureLine.SetPointPosition(0, PictureLeft.Position);
+    FrontalLine.SetPointPosition(1, FrontalRight.Position);
+    PictureLine.SetPointPosition(1, PictureRight.Position);
   }
 }
