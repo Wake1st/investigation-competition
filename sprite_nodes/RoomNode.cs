@@ -17,4 +17,12 @@ public partial class RoomNode : Node2D
     }
   }
   private Texture2D background;
+
+  public SppScheme SppScheme { get; set; }
+
+  public override void _Ready()
+  {
+    base._Ready();
+    SppScheme = GetNode<SppScheme>("SppScheme");
+  }
 }
