@@ -38,7 +38,7 @@ public partial class SppScheme : Node2D
       if (HasNode("FrontalLeft"))
       {
         pictureLeft = value;
-        GD.Print(pictureLeft.Position);
+        NotifyPropertyListChanged();
 
         //  move the frontal node on this side
         Vector2 position = GetNode<Node2D>("FrontalLeft").Position;
@@ -61,6 +61,8 @@ public partial class SppScheme : Node2D
       if (HasNode("FrontalRight"))
       {
         pictureRight = value;
+        NotifyPropertyListChanged();
+
         //  move the frontal node on this side
         Vector2 position = GetNode<Node2D>("FrontalRight").Position;
         float newX = pictureRight.Position.X / pictureRight.Position.Y * position.Y;
@@ -73,19 +75,23 @@ public partial class SppScheme : Node2D
   }
   private Node2D pictureRight = new Node2D();
 
-  // public override void _Ready()
-  // {
-  //     base._Ready();
+  public override void _Ready()
+  {
+    base._Ready();
 
-  //     FrontalLeft = GetNode<Node2D>("FrontalLeft");
-  //     PictureLeft = GetNode<Node2D>("PictureLeft");
-  //     FrontalRight = GetNode<Node2D>("FrontalRight");
-  //     PictureRight = GetNode<Node2D>("PictureRight");
+    FrontalLeft = GetNode<Node2D>("FrontalLeft");
+    PictureLeft = GetNode<Node2D>("PictureLeft");
+    FrontalRight = GetNode<Node2D>("FrontalRight");
+    PictureRight = GetNode<Node2D>("PictureRight");
 
-  //     FrontalLeft.ItemRectChanged += OnRectChanged;
-  // }
+    FrontalLeft.ItemRectChanged += OnRectChanged;
+    PictureLeft.ItemRectChanged += OnRectChanged;
+    FrontalRight.ItemRectChanged += OnRectChanged;
+    PictureRight.ItemRectChanged += OnRectChanged;
+  }
 
-  // public void OnRectChanged() {
-
-  // }
+  public void OnRectChanged()
+  {
+    GD.Print("Rect changed");
+  }
 }
