@@ -3,15 +3,8 @@ using System;
 
 public partial class Character : Node2D
 {
-  const float COORD3D_CLAMP_X = .54f;
-  const float COORD3D_CLAMP_Z = .18f;
-
-  const float HEIGHT_TO_FOCAL = -642f;
-  const float MAX_FLOOR_HALF_WIDTH = 512;
-  const float MID_FLOOR_HALF_WIDTH = 448f;
-
-  const float PLANAR_SPEED = .3f;
-  const float DEPTH_SPEED = .2f;
+  const float PLANAR_SPEED = 280f;
+  const float DEPTH_SPEED = 200f;
 
   public RoomNode CurrentRoom { get; set; }
 
@@ -90,26 +83,19 @@ public partial class Character : Node2D
 
   private void Move(Vector2 movement, float delta)
   {
-    //	update coordinates
-    Vector3 previousCoord3D = coord3D;
-    coord3D += new Vector3(movement.X * PLANAR_SPEED, 0.0f, -movement.Y * DEPTH_SPEED) * delta;
+    //  get the horizontal and depth movements
+    float depthRatio = CurrentRoom.GetDepthRatio(Position);
+    Vector2 horizontalMovement = new Vector2(movement.X * PLANAR_SPEED * depthRatio * delta, 0f);
+    Vector2 depthMovement = (CurrentRoom.GetFocalPoint() - GlobalPosition).Normalized() * movement.Y * DEPTH_SPEED * depthRatio * delta;
 
-    //	set position
-    float slantHeight = Position.Y - HEIGHT_TO_FOCAL;
-    float slantWidth = Mathf.Lerp(0, MAX_FLOOR_HALF_WIDTH, slantHeight);
-    float flatHorizontalMultiplier = slantWidth / MID_FLOOR_HALF_WIDTH;
-    float slatRatio = Mathf.Abs(slantWidth / slantHeight);
-    float flatVerticalMultiplier = coord3D.Z * slatRatio;
-
-    //  reset the 3D coords if there is clamping
-    Vector2 updatedPosition = new(
-      coord3D.X * flatHorizontalMultiplier,
-      flatVerticalMultiplier
-    );
+    //  get and clamp the updated position
+    Vector2 updatedPosition = Position + (horizontalMovement + depthMovement);
     Vector2 clampedPosition = CurrentRoom.ClampWithinBoundaries(updatedPosition);
-    if (updatedPosition != clampedPosition)
+
+    //  one final clamp, to ensure no sliding at the frontal and picture planes
+    if (updatedPosition.Y != clampedPosition.Y && updatedPosition.X == clampedPosition.X)
     {
-      coord3D = previousCoord3D;
+      clampedPosition.X = Position.X + horizontalMovement.X;
     }
 
     //  finally, set the position

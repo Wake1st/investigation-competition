@@ -26,6 +26,9 @@ public partial class RoomNode : Node2D
     SppSchema = GetNode<SppSchema>("SPPSchema");
   }
 
-  public Vector2 ClampWithinBoundaries(Vector2 position) =>
-    SppSchema.ClampWithinBoundaries(position);
+  public Vector2 GetFocalPoint() => SppSchema.GlobalPosition;
+
+  public float GetDepthRatio(Vector2 position) => SppSchema.GetDepthRatio(position);
+
+  public Vector2 ClampWithinBoundaries(Vector2 position) => SppSchema.ClampWithinBoundaries(position);
 }

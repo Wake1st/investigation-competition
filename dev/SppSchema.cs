@@ -24,6 +24,8 @@ public partial class SppSchema : Node2D
     );
   }
 
+  public float GetDepthRatio(Vector2 position) => (position - GlobalPosition).Length() / (PictureRight.GlobalPosition - GlobalPosition).Length();
+
   public override void _Ready()
   {
     base._Ready();
