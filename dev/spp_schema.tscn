@@ -1,0 +1,39 @@
+[gd_scene load_steps=3 format=3 uid="uid://di3gssim7d5py"]
+
+[ext_resource type="Script" path="res://dev/SppSchema.cs" id="1_73w03"]
+[ext_resource type="Script" path="res://dev/AnchorPoint.cs" id="2_kkxdw"]
+
+[node name="SPPSchema" type="Node2D"]
+script = ExtResource("1_73w03")
+
+[node name="LeftLine" type="Line2D" parent="."]
+points = PackedVector2Array(0, 0, -594.186, 814)
+default_color = Color(0.1656, 0.442213, 0.92, 0.317647)
+
+[node name="RightLine" type="Line2D" parent="."]
+points = PackedVector2Array(0, 0, 594.186, 814)
+default_color = Color(0.1656, 0.442213, 0.92, 0.317647)
+
+[node name="FrontalLine" type="Line2D" parent="."]
+points = PackedVector2Array(-346, 474, 346, 474)
+default_color = Color(0.92, 0.1012, 0.169434, 0.682353)
+
+[node name="PictureLine" type="Line2D" parent="."]
+points = PackedVector2Array(-594.186, 814, 594.186, 814)
+default_color = Color(0.530227, 0.92, 0.1656, 0.317647)
+
+[node name="FrontalLeft" type="Node2D" parent="."]
+position = Vector2(-346, 474)
+script = ExtResource("2_kkxdw")
+
+[node name="PictureLeft" type="Node2D" parent="."]
+position = Vector2(-594.186, 814)
+script = ExtResource("2_kkxdw")
+
+[node name="FrontalRight" type="Node2D" parent="."]
+position = Vector2(346, 474)
+script = ExtResource("2_kkxdw")
+
+[node name="PictureRight" type="Node2D" parent="."]
+position = Vector2(594.186, 814)
+script = ExtResource("2_kkxdw")

@@ -1,6 +1,7 @@
 using System;
 using Godot;
 
+[Tool]
 [GlobalClass]
 public partial class Clue : Resource
 {
@@ -15,7 +16,8 @@ public partial class Clue : Resource
   private bool IsFoux { get; set; } = false;
 }
 
-public enum ClueSignificance {
+public enum ClueSignificance
+{
   Personal,
   Locale,
   Motive

@@ -5,4 +5,5 @@
 [resource]
 script = ExtResource("1_n0vg2")
 Term = "Wallet"
+Significance = 0
 Description = "It looks like leather, it smells like leather, but something tells you it's not real leather. Inside is a few, dozen dollars and a BOGO coupon for a place called \"Wild Stallions\"."

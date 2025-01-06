@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://c8cbt2fruq53j"]
+
+[ext_resource type="Script" path="res://sprite_nodes/Popup.cs" id="1_unyhm"]
+
+[node name="Popup" type="Sprite2D"]
+visible = false
+texture_filter = 1
+script = ExtResource("1_unyhm")
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
