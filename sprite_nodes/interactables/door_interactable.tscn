@@ -14,11 +14,15 @@ FlipDoor = true
 Popup = NodePath("Popup")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -104)
 shape = SubResource("RectangleShape2D_6ub2m")
 
 [node name="Image" type="Sprite2D" parent="."]
+texture_filter = 1
 texture = ExtResource("1_pbvv4")
+offset = Vector2(0, -104)
 flip_v = true
 
 [node name="Popup" parent="." instance=ExtResource("2_ek4w2")]
 texture = ExtResource("3_su4gg")
+PopDistance = 128.0

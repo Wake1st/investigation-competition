@@ -6,3 +6,4 @@
 script = ExtResource("1_h67ra")
 
 [node name="Image" type="Sprite2D" parent="."]
+texture_filter = 1

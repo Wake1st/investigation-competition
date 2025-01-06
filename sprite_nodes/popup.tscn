@@ -4,6 +4,7 @@
 
 [node name="Popup" type="Sprite2D"]
 visible = false
+texture_filter = 1
 script = ExtResource("1_unyhm")
 
 [node name="Timer" type="Timer" parent="."]

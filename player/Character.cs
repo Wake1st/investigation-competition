@@ -4,20 +4,23 @@ using System;
 public partial class Character : Node2D
 {
   const float PLANAR_SPEED = 280f;
-  const float DEPTH_SPEED = 200f;
-
-  public RoomNode CurrentRoom { get; set; }
+  const float DEPTH_SPEED = 160f;
+  const float ROOM_ENTERED_BUFFER = 40f;
+  const float ROOM_CHANGE_DURATION = 0.36f;
 
   [Signal]
   public delegate void ClueCollectedEventHandler(ClueNode clueNode);
   [Signal]
   public delegate void RoomChangedEventHandler(RoomNode newRoom);
 
+  public RoomNode CurrentRoom { get; set; }
+  public Interactable CollidingInteractable { get; set; } = null;
+  private bool IsFloating { get; set; }
+
   private Vector3 coord3D = new(0f, 0f, 0f);
   private Sprite2D sprite;
   private InteractionArea interactionArea;
-
-  public Interactable CollidingInteractable { get; set; } = null;
+  private Tween shiftCharacter;
 
   public override void _Ready()
   {
@@ -31,10 +34,20 @@ public partial class Character : Node2D
 
   public override void _PhysicsProcess(double delta)
   {
+    //  check for floating
+    if (IsFloating && !shiftCharacter.IsRunning())
+    {
+      Visible = true;
+      IsFloating = false;
+    }
+
     //	player movement
-    Vector2 movement = MovementInputs();
-    Move(movement, (float)delta);
-    Animate(movement);
+    if (!IsFloating)
+    {
+      Vector2 movement = MovementInputs();
+      Move(movement, (float)delta);
+      Animate(movement);
+    }
   }
 
   public override void _Input(InputEvent @event)
@@ -135,9 +148,14 @@ public partial class Character : Node2D
           DoorInteractable doorInteractable = (DoorInteractable)CollidingInteractable;
 
           //	change rooms
-          CurrentRoom = doorInteractable.ConnectingDoor.CurrentRoom;
+          DoorInteractable connectingDoor = doorInteractable.ConnectingDoor;
+          CurrentRoom = connectingDoor.CurrentRoom;
           EmitSignal(SignalName.RoomChanged, CurrentRoom);
-          Position = CurrentRoom.Position + doorInteractable.ConnectingDoor.Position;
+          Vector2 enterBuffer = (CurrentRoom.GlobalPosition - connectingDoor.GlobalPosition).Normalized() * ROOM_ENTERED_BUFFER;
+          shiftCharacter = CreateTween();
+          shiftCharacter.TweenProperty(this, "global_position", connectingDoor.GlobalPosition + enterBuffer, ROOM_CHANGE_DURATION);
+          Visible = false;
+          IsFloating = true;
 
           break;
         default:

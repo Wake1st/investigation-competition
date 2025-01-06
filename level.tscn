@@ -16,12 +16,12 @@
 Location = ExtResource("3_2pwan")
 
 [node name="DoorFoyerLibrary" parent="Foyer" node_paths=PackedStringArray("CurrentRoom", "ConnectingDoor") instance=ExtResource("5_odso0")]
-position = Vector2(-465, -79)
+position = Vector2(-465, 25)
 CurrentRoom = NodePath("..")
 ConnectingDoor = NodePath("../../Library/DoorLibraryFoyer")
 
 [node name="DoorFoyerLiving" parent="Foyer" node_paths=PackedStringArray("CurrentRoom", "ConnectingDoor") instance=ExtResource("5_odso0")]
-position = Vector2(465, -79)
+position = Vector2(465, 25)
 CurrentRoom = NodePath("..")
 ConnectingDoor = NodePath("../../LivingRoom/DoorLivingFoyer")
 
@@ -30,7 +30,7 @@ position = Vector2(-1024, 0)
 Location = ExtResource("5_l3jn5")
 
 [node name="DoorLibraryFoyer" parent="Library" node_paths=PackedStringArray("CurrentRoom", "ConnectingDoor") instance=ExtResource("5_odso0")]
-position = Vector2(465, -79)
+position = Vector2(465, 25)
 CurrentRoom = NodePath("..")
 ConnectingDoor = NodePath("../../Foyer/DoorFoyerLibrary")
 
@@ -39,7 +39,7 @@ position = Vector2(1024, 0)
 Location = ExtResource("5_e4l8y")
 
 [node name="DoorLivingFoyer" parent="LivingRoom" node_paths=PackedStringArray("CurrentRoom", "ConnectingDoor") instance=ExtResource("5_odso0")]
-position = Vector2(-465, -79)
+position = Vector2(-465, 25)
 CurrentRoom = NodePath("..")
 ConnectingDoor = NodePath("../../Foyer/DoorFoyerLiving")
 
