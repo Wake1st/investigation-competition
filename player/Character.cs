@@ -106,9 +106,15 @@ public partial class Character : Node2D
   {
     //	animate sprite
     if (sprite.FlipH && movement.X < 0f)
+    {
       sprite.FlipH = false;
+      sprite.Position = new Vector2(8f, 0f);
+    }
     else if (!sprite.FlipH && movement.X > 0f)
+    {
       sprite.FlipH = true;
+      sprite.Position = new Vector2(-8f, 0f);
+    }
   }
 
   private void ProcessAction()

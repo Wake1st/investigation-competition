@@ -17,27 +17,27 @@ offset = Vector2(0, -224)
 position = Vector2(0, -674)
 
 [node name="LeftLine" parent="SPPSchema" index="0"]
-points = PackedVector2Array(0, 0, -511.649, 770)
+points = PackedVector2Array(0, 0, -464.715, 765)
 
 [node name="RightLine" parent="SPPSchema" index="1"]
-points = PackedVector2Array(0, 0, 511.649, 770)
+points = PackedVector2Array(0, 0, 464.715, 765)
 
 [node name="FrontalLine" parent="SPPSchema" index="2"]
-points = PackedVector2Array(-384.069, 578, 384.069, 578)
+points = PackedVector2Array(-354.156, 583, 354.156, 583)
 
 [node name="PictureLine" parent="SPPSchema" index="3"]
-points = PackedVector2Array(-511.649, 770, 511.649, 770)
+points = PackedVector2Array(-464.715, 765, 464.715, 765)
 
 [node name="FrontalLeft" parent="SPPSchema" index="4"]
-position = Vector2(-384.069, 578)
+position = Vector2(-354.156, 583)
 
 [node name="PictureLeft" parent="SPPSchema" index="5"]
-position = Vector2(-511.649, 770)
+position = Vector2(-464.715, 765)
 
 [node name="FrontalRight" parent="SPPSchema" index="6"]
-position = Vector2(384.069, 578)
+position = Vector2(354.156, 583)
 
 [node name="PictureRight" parent="SPPSchema" index="7"]
-position = Vector2(511.649, 770)
+position = Vector2(464.715, 765)
 
 [editable path="SPPSchema"]
