@@ -89,17 +89,17 @@ public partial class Character : Node2D
     Vector2 depthMovement = (CurrentRoom.GetFocalPoint() - GlobalPosition).Normalized() * movement.Y * DEPTH_SPEED * depthRatio * delta;
 
     //  get and clamp the updated position
-    Vector2 updatedPosition = Position + (horizontalMovement + depthMovement);
+    Vector2 updatedPosition = GlobalPosition + (horizontalMovement + depthMovement);
     Vector2 clampedPosition = CurrentRoom.ClampWithinBoundaries(updatedPosition);
 
     //  one final clamp, to ensure no sliding at the frontal and picture planes
     if (updatedPosition.Y != clampedPosition.Y && updatedPosition.X == clampedPosition.X)
     {
-      clampedPosition.X = Position.X + horizontalMovement.X;
+      clampedPosition.X = GlobalPosition.X + horizontalMovement.X;
     }
 
     //  finally, set the position
-    Position = clampedPosition;
+    GlobalPosition = clampedPosition;
   }
 
   private void Animate(Vector2 movement)
