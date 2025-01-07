@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Weapon" load_steps=2 format=3 uid="uid://co3txjkrkwiab"]
+
+[ext_resource type="Script" path="res://resources/clues/weapons/Weapon.cs" id="1_4sodb"]
+
+[resource]
+script = ExtResource("1_4sodb")
+KillType = 1
+Term = "Shears"
+Significance = 1
+Description = "Long shears, most likely for trimming plants."

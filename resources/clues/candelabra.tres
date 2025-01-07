@@ -1,9 +1,0 @@
-[gd_resource type="Resource" script_class="Clue" load_steps=2 format=3 uid="uid://b5lypfnxsiwkr"]
-
-[ext_resource type="Script" path="res://resources/clues/Clue.cs" id="1_t3n67"]
-
-[resource]
-script = ExtResource("1_t3n67")
-Term = "Candelabra"
-Significance = 1
-Description = "Five, silver arms hold 4 slightly bend candles."

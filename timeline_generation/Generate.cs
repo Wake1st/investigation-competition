@@ -20,13 +20,13 @@ public partial class TimelineGenerator : Node
     GD.Load<Location>("res://resources/locations/living_room.tres"),
   };
 
-  public Array<Clue> Weapons = new Array<Clue> {
-    GD.Load<Clue>("res://resources/clues/bust.tres"),
-    GD.Load<Clue>("res://resources/clues/candelabra.tres"),
-    GD.Load<Clue>("res://resources/clues/cleaver.tres"),
-    GD.Load<Clue>("res://resources/clues/fire_poker.tres"),
-    GD.Load<Clue>("res://resources/clues/paper_weight.tres"),
-    GD.Load<Clue>("res://resources/clues/shears.tres"),
+  public Array<Weapon> Weapons = new Array<Weapon> {
+    GD.Load<Weapon>("res://resources/clues/weapons/bust.tres"),
+    GD.Load<Weapon>("res://resources/clues/weapons/candelabra.tres"),
+    GD.Load<Weapon>("res://resources/clues/weapons/cleaver.tres"),
+    GD.Load<Weapon>("res://resources/clues/weapons/fire_poker.tres"),
+    GD.Load<Weapon>("res://resources/clues/weapons/paper_weight.tres"),
+    GD.Load<Weapon>("res://resources/clues/weapons/shears.tres"),
   };
 
   public CrimeLine Generate()
@@ -49,15 +49,13 @@ public partial class TimelineGenerator : Node
     Location primeScene = Locations[primeSceneIndex];
 
     int weaponIndex = rand.Next(Weapons.Count);
-    Clue weapon = Weapons[weaponIndex];
+    Weapon weapon = Weapons[weaponIndex];
 
-    //  TODO: the weapon should be it's own `Clue` sub-class
-    //        with a corresponding `KillActionType`
     KillAction killAction = new KillAction()
     {
       Actor = killer,
       Victim = victim,
-      Type = KillActionType.Bludgeon  //  weapon.KillType
+      Type = weapon.KillType
     };
 
     int startHour = rand.Next(1, 13);

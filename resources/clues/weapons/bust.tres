@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Weapon" load_steps=2 format=3 uid="uid://dy680d611okda"]
+
+[ext_resource type="Script" path="res://resources/clues/weapons/Weapon.cs" id="1_gh34d"]
+
+[resource]
+script = ExtResource("1_gh34d")
+KillType = 3
+Term = "Bust"
+Significance = 1
+Description = "You don't recognise this person - probably a dead, family member."
