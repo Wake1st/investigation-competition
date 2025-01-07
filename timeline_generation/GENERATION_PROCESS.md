@@ -17,10 +17,10 @@ This is a step by step walkthrough to better understand how the timeline generat
   - [x] someone murdered someone
   - [x] somewhere
   - [x] with some item
-  - [ ] everyone else should be accounted for during that time range
+  - [x] everyone else should be accounted for during that time range
     - [x] give each person a location
     - [x] set a time that intersects the murder time
-    - [ ] create occurences (possibly shared) for the timeline
+    - [x] create occurences (possibly shared) for the timeline
 - [ ] add primary nodes (everyone was somewhere - "dinner", "lounging", "found the body"... for a long duration of time)
 - [ ] add minor nodes
   - [ ] go backwards from root node, then forwards from root node
