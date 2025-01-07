@@ -13,9 +13,9 @@ This is a step by step walkthrough to better understand how the timeline generat
 
 
 ## Steps
-- [ ] start with a root node: 
-  - [ ] someone murdered someone
-  - [ ] somewhere
+- [x] start with a root node: 
+  - [x] someone murdered someone
+  - [x] somewhere
   - [ ] with some item
   - [ ] everyone else should be accounted for during that time range
 - [ ] add primary nodes (everyone was somewhere - "dinner", "lounging", "found the body"... for a long duration of time)
