@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="Location" load_steps=2 format=3 uid="uid://cq8t7e0hab82d"]
+
+[ext_resource type="Script" path="res://resources/locations/Location.cs" id="1_4ssv3"]
+
+[resource]
+script = ExtResource("1_4ssv3")
+Term = "Kitchen"
+Description = "A small room with stoves, ovens, a sink, many shelves, and an island in the middle of the room, above which hang many pots and pans. The inner doors connect to the dining room and the long side hall."

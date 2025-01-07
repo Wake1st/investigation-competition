@@ -1,0 +1,43 @@
+[gd_scene load_steps=4 format=3 uid="uid://c4lkxcwa1uxov"]
+
+[ext_resource type="Script" path="res://sprite_nodes/RoomNode.cs" id="1_gsmo6"]
+[ext_resource type="Texture2D" uid="uid://dkhhi5nmxyn6u" path="res://assets/room.png" id="2_khlwn"]
+[ext_resource type="PackedScene" uid="uid://di3gssim7d5py" path="res://dev/spp_schema.tscn" id="2_onicu"]
+
+[node name="RoomNode" type="Node2D"]
+script = ExtResource("1_gsmo6")
+Background = ExtResource("2_khlwn")
+
+[node name="Image" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("2_khlwn")
+offset = Vector2(0, -224)
+
+[node name="SPPSchema" parent="." instance=ExtResource("2_onicu")]
+position = Vector2(0, -674)
+
+[node name="LeftLine" parent="SPPSchema" index="0"]
+points = PackedVector2Array(0, 0, -464.715, 765)
+
+[node name="RightLine" parent="SPPSchema" index="1"]
+points = PackedVector2Array(0, 0, 464.715, 765)
+
+[node name="FrontalLine" parent="SPPSchema" index="2"]
+points = PackedVector2Array(-354.156, 583, 354.156, 583)
+
+[node name="PictureLine" parent="SPPSchema" index="3"]
+points = PackedVector2Array(-464.715, 765, 464.715, 765)
+
+[node name="FrontalLeft" parent="SPPSchema" index="4"]
+position = Vector2(-354.156, 583)
+
+[node name="PictureLeft" parent="SPPSchema" index="5"]
+position = Vector2(-464.715, 765)
+
+[node name="FrontalRight" parent="SPPSchema" index="6"]
+position = Vector2(354.156, 583)
+
+[node name="PictureRight" parent="SPPSchema" index="7"]
+position = Vector2(464.715, 765)
+
+[editable path="SPPSchema"]

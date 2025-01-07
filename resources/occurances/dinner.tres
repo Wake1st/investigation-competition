@@ -1,0 +1,40 @@
+[gd_resource type="Resource" script_class="Occurence" load_steps=14 format=3 uid="uid://i4pih3rqcikp"]
+
+[ext_resource type="Script" path="res://resources/occurances/Occurence.cs" id="1_na4pm"]
+[ext_resource type="Resource" uid="uid://cy54epmt15cn5" path="res://resources/person/sir_geoffrey_bradford.tres" id="1_wsga3"]
+[ext_resource type="Resource" uid="uid://cnq2synl4jo0u" path="res://resources/person/dr_isaac_zhou.tres" id="2_0y1cn"]
+[ext_resource type="Resource" uid="uid://ehgjvfotk5x3" path="res://resources/person/major_thomas_oleary.tres" id="3_x03rq"]
+[ext_resource type="Resource" uid="uid://cm2fsyjks2vr2" path="res://resources/person/sam_beauregard.tres" id="4_aw16s"]
+[ext_resource type="Script" path="res://resources/action/GroupAction.cs" id="5_p7dpg"]
+[ext_resource type="Script" path="res://resources/TimePoint.cs" id="6_lcu4o"]
+[ext_resource type="Script" path="res://resources/TimeRange.cs" id="7_s0j23"]
+[ext_resource type="Resource" uid="uid://xdxuj32b40js" path="res://resources/locations/dining_room.tres" id="8_q42e1"]
+
+[sub_resource type="Resource" id="Resource_2lmhd"]
+script = ExtResource("5_p7dpg")
+Type = 0
+Others = Array[Object]([ExtResource("2_0y1cn"), ExtResource("3_x03rq"), ExtResource("4_aw16s")])
+Actor = ExtResource("1_wsga3")
+
+[sub_resource type="Resource" id="Resource_tqlnd"]
+script = ExtResource("6_lcu4o")
+Hour = 8
+Minute = 0
+Meridiem = 1
+
+[sub_resource type="Resource" id="Resource_fqvx4"]
+script = ExtResource("6_lcu4o")
+Hour = 6
+Minute = 15
+Meridiem = 1
+
+[sub_resource type="Resource" id="Resource_db80x"]
+script = ExtResource("7_s0j23")
+Start = SubResource("Resource_fqvx4")
+End = SubResource("Resource_tqlnd")
+
+[resource]
+script = ExtResource("1_na4pm")
+When = SubResource("Resource_db80x")
+Where = ExtResource("8_q42e1")
+Action = SubResource("Resource_2lmhd")

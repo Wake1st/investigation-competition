@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="Suspect" load_steps=7 format=3 uid="uid://b6n5ukr3dfrjs"]
+
+[ext_resource type="Script" path="res://resources/Motive.cs" id="1_cgyl3"]
+[ext_resource type="Script" path="res://resources/suspects/Suspect.cs" id="1_sfb6y"]
+[ext_resource type="Resource" uid="uid://cy54epmt15cn5" path="res://resources/person/sir_geoffrey_bradford.tres" id="2_uvto6"]
+[ext_resource type="Script" path="res://resources/Timeline.cs" id="6_s5fl2"]
+
+[sub_resource type="Resource" id="Resource_4byhd"]
+script = ExtResource("1_cgyl3")
+Strength = 2
+Desire = 0
+
+[sub_resource type="Resource" id="Resource_xhwdh"]
+script = ExtResource("6_s5fl2")
+Nodes = null
+
+[resource]
+script = ExtResource("1_sfb6y")
+Person = ExtResource("2_uvto6")
+Motive = SubResource("Resource_4byhd")
+Timeline = SubResource("Resource_xhwdh")

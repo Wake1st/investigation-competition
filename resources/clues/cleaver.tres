@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="Clue" load_steps=2 format=3 uid="uid://dekc355qj8n43"]
+
+[ext_resource type="Script" path="res://resources/clues/Clue.cs" id="1_tx7yy"]
+
+[resource]
+script = ExtResource("1_tx7yy")
+Term = "Cleaver"
+Significance = 1
+Description = "A big, rectangular knife used for cutting meat... I guess you could use it for other things."

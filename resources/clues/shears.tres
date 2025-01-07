@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="Clue" load_steps=2 format=3 uid="uid://dxwlv8nmv424k"]
+
+[ext_resource type="Script" path="res://resources/clues/Clue.cs" id="1_ypt2n"]
+
+[resource]
+script = ExtResource("1_ypt2n")
+Term = "Shears"
+Significance = 1
+Description = "Long shears, most likely for trimming plants."

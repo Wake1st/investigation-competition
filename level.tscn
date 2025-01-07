@@ -1,38 +1,56 @@
-[gd_scene load_steps=8 format=3 uid="uid://cf2oavywn6o6g"]
+[gd_scene load_steps=10 format=3 uid="uid://cf2oavywn6o6g"]
 
-[ext_resource type="Script" path="res://Level.cs" id="1_5kw3u"]
-[ext_resource type="PackedScene" uid="uid://bfybj5id4p60j" path="res://room.tscn" id="1_j0c4n"]
+[ext_resource type="PackedScene" uid="uid://c4lkxcwa1uxov" path="res://sprite_nodes/room_node.tscn" id="2_a1hnk"]
 [ext_resource type="PackedScene" uid="uid://dq21tc0ehopgn" path="res://player/player.tscn" id="2_srm2y"]
-[ext_resource type="PackedScene" uid="uid://6xux820t2jh0" path="res://clues/clue.tscn" id="3_4xh2n"]
-[ext_resource type="PackedScene" uid="uid://b7ahe1b2hetg6" path="res://interactable.tscn" id="3_orbhs"]
+[ext_resource type="Resource" uid="uid://dm6v6it30o0bi" path="res://resources/locations/foyer.tres" id="3_2pwan"]
+[ext_resource type="PackedScene" uid="uid://6xux820t2jh0" path="res://sprite_nodes/clue_node.tscn" id="3_4xh2n"]
 [ext_resource type="Texture2D" uid="uid://ixudkvc0uvr" path="res://assets/wallet.png" id="4_g0j56"]
-[ext_resource type="PackedScene" uid="uid://dbguthovey4pg" path="res://ui/inventory.tscn" id="6_0ge13"]
+[ext_resource type="Resource" uid="uid://x61rrowaxieu" path="res://resources/locations/living_room.tres" id="5_e4l8y"]
+[ext_resource type="Resource" uid="uid://bhqujdybmted4" path="res://resources/locations/library.tres" id="5_l3jn5"]
+[ext_resource type="PackedScene" uid="uid://dj83hfapuo3fs" path="res://sprite_nodes/interactables/door_interactable.tscn" id="5_odso0"]
+[ext_resource type="PackedScene" uid="uid://cfakgraxkjeth" path="res://sprite_nodes/interactables/clue_interactable.tscn" id="9_ydd0p"]
 
 [node name="Level" type="Node"]
-script = ExtResource("1_5kw3u")
 
-[node name="Room" parent="." instance=ExtResource("1_j0c4n")]
+[node name="Foyer" parent="." instance=ExtResource("2_a1hnk")]
+Location = ExtResource("3_2pwan")
 
-[node name="Player" parent="." instance=ExtResource("2_srm2y")]
+[node name="DoorFoyerLibrary" parent="Foyer" node_paths=PackedStringArray("CurrentRoom", "ConnectingDoor") instance=ExtResource("5_odso0")]
+position = Vector2(-465, 25)
+CurrentRoom = NodePath("..")
+ConnectingDoor = NodePath("../../Library/DoorLibraryFoyer")
+
+[node name="DoorFoyerLiving" parent="Foyer" node_paths=PackedStringArray("CurrentRoom", "ConnectingDoor") instance=ExtResource("5_odso0")]
+position = Vector2(465, 25)
+CurrentRoom = NodePath("..")
+ConnectingDoor = NodePath("../../LivingRoom/DoorLivingFoyer")
+
+[node name="Library" parent="." instance=ExtResource("2_a1hnk")]
+position = Vector2(-1024, 0)
+Location = ExtResource("5_l3jn5")
+
+[node name="DoorLibraryFoyer" parent="Library" node_paths=PackedStringArray("CurrentRoom", "ConnectingDoor") instance=ExtResource("5_odso0")]
+position = Vector2(465, 25)
+CurrentRoom = NodePath("..")
+ConnectingDoor = NodePath("../../Foyer/DoorFoyerLibrary")
+
+[node name="LivingRoom" parent="." instance=ExtResource("2_a1hnk")]
+position = Vector2(1024, 0)
+Location = ExtResource("5_e4l8y")
+
+[node name="DoorLivingFoyer" parent="LivingRoom" node_paths=PackedStringArray("CurrentRoom", "ConnectingDoor") instance=ExtResource("5_odso0")]
+position = Vector2(-465, 25)
+CurrentRoom = NodePath("..")
+ConnectingDoor = NodePath("../../Foyer/DoorFoyerLiving")
+
+[node name="Player" parent="." node_paths=PackedStringArray("CurrentRoom") instance=ExtResource("2_srm2y")]
 unique_name_in_owner = true
 scale = Vector2(1.5, 1.5)
+CurrentRoom = NodePath("../Foyer")
 
-[node name="Interactable" parent="." node_paths=PackedStringArray("Clue") instance=ExtResource("3_orbhs")]
-position = Vector2(-321, -71)
-Clue = NodePath("Wallet")
+[node name="ClueInteractable" parent="." node_paths=PackedStringArray("ClueNode") instance=ExtResource("9_ydd0p")]
+position = Vector2(-240, -96)
+ClueNode = NodePath("Wallet")
 
-[node name="Wallet" parent="Interactable" instance=ExtResource("3_4xh2n")]
+[node name="Wallet" parent="ClueInteractable" instance=ExtResource("3_4xh2n")]
 Image = ExtResource("4_g0j56")
-Description = "Looks (and smells) like leather, has $24, a few gift cards, and an expired, BOGO coupon for a \"Jimmy's Cream Blast\"."
-
-[node name="Inventory" parent="." instance=ExtResource("6_0ge13")]
-anchors_preset = 0
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_top = 240.0
-offset_bottom = 240.0
-grow_horizontal = 1
-grow_vertical = 1
-
-[node name="Camera2D" type="Camera2D" parent="."]
-offset = Vector2(0, -224)

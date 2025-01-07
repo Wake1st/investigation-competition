@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="Person" load_steps=2 format=3 uid="uid://ehgjvfotk5x3"]
+
+[ext_resource type="Script" path="res://resources/person/Person.cs" id="1_26cm2"]
+
+[resource]
+script = ExtResource("1_26cm2")
+Name = "Major Thomas O'Leary"
+Description = "Cheerful, radiant, and energetic - the Major was well suited for marching to the military drum, but life as a civilian has proven more difficult; he has many aquaintences but few friends, for he keeps more than military secrets close to his chest - how he longs for the company of comrades now lost to the battlefield. "

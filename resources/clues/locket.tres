@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="Clue" load_steps=2 format=3 uid="uid://j4eh117oskkg"]
+
+[ext_resource type="Script" path="res://resources/clues/Clue.cs" id="1_5vxyx"]
+
+[resource]
+script = ExtResource("1_5vxyx")
+Term = "Locket"
+Significance = 2
+Description = "A locket containing a photo of a child; the photo is worn - it's looked upon often."
