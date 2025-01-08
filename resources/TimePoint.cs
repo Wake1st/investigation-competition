@@ -5,17 +5,15 @@ using Godot;
 public partial class TimePoint : Resource
 {
   [Export]
-  [Range(1, 12)]
+  [Range(1, 24)]
   public int Hour { get; set; }
   [Export]
   [Range(0, 60)]
-  public int Minute { get; set; }
-  [Export]
-  public Meridiem Meridiem { get; set; }
-}
-
-public enum Meridiem
-{
-  AM,
-  PM
+  public int Minute { 
+    get => minute; 
+    set {
+      minute = value % 60;
+    }
+  }
+  private int minute;
 }

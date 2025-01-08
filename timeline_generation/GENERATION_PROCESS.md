@@ -21,7 +21,7 @@ This is a step by step walkthrough to better understand how the timeline generat
     - [x] give each person a location
     - [x] set a time that intersects the murder time
     - [x] create occurences (possibly shared) for the timeline
-- [ ] add primary nodes (everyone was somewhere - "dinner", "lounging", "found the body"... for a long duration of time)
+- [x] add primary nodes (everyone was somewhere - "dinner", "lounging", "found the body"... for a long duration of time)
 - [ ] add minor nodes
   - [ ] go backwards from root node, then forwards from root node
   - [ ] switch between people, allowing a chance for an `Occurence` should a person's path cross another

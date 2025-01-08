@@ -37,6 +37,36 @@ public partial class TimelineGenerator : Node
   public CrimeLine Generate()
   {
     CrimeLine crimeLine = new();
+
+    (
+      Occurence incitingIncident,
+      Person victim,
+      Person killer, 
+      TimeRange killTime, 
+      int primeSceneIndex
+    ) = GenerateIncitingIncident();
+
+    crimeLine.RootNode = new()
+    {
+      Occurence = incitingIncident,
+    };
+
+    //  next, the other persons must be accounted for during the kill time
+    Array<Person> innocents = Persons.Duplicate();
+    innocents.Remove(victim);
+    innocents.Remove(killer);
+    Array<Occurence> alibiOccurences = GenerateAlibis(innocents, killTime, primeSceneIndex);
+
+    //  next, primary nodes (dinner)
+    Occurence primaryIncident = GeneratePrimaryIncident(killTime, victim);
+
+    // fill in nodes for each person
+
+
+    return crimeLine;
+  }
+
+  private (Occurence, Person, Person, TimeRange, int) GenerateIncitingIncident() {
     Random rand = new();
 
     //  first, there must be an inciting incident
@@ -65,28 +95,15 @@ public partial class TimelineGenerator : Node
       Action = killAction,
     };
 
-    crimeLine.RootNode = new()
-    {
-      Occurence = incitingIncident,
-    };
-
-    //  next, the other persons must be accounted for during the kill time
-    Array<Person> innocents = Persons.Duplicate();
-    innocents.Remove(victim);
-    innocents.Remove(killer);
-    Array<Occurence> alibiOccurences = GenerateAlibis(rand, innocents, killTime, primeSceneIndex);
-
-    //  what do we fuckin do now?
-
-    return crimeLine;
+    return (incitingIncident, victim, killer, killTime, primeSceneIndex);
   }
 
   private TimeRange GenerateKillTime(Random rand)
   {
-    int startHour = rand.Next(1, 13);
-    int endHour = rand.Next(startHour, 13);
+    int startHour = rand.Next(1, 25);
+    int endHour = rand.Next(startHour, 25);
     int startMinutes = rand.Next(12) * 5;
-    int endMinutes = startMinutes + 5 % 60;
+    int endMinutes = startMinutes + 5;
 
     return new TimeRange()
     {
@@ -103,9 +120,10 @@ public partial class TimelineGenerator : Node
     };
   }
 
-  private Array<Occurence> GenerateAlibis(Random rand, Array<Person> innocents, TimeRange killTime, int primeSceneIndex)
+  private Array<Occurence> GenerateAlibis(Array<Person> innocents, TimeRange killTime, int primeSceneIndex)
   {
     System.Collections.Generic.Dictionary<Location, List<Tuple<Person, TimeRange>>> alibiLocations = new();
+    Random rand = new();
 
     foreach (Person innocent in innocents)
     {
@@ -169,10 +187,25 @@ public partial class TimelineGenerator : Node
     return occurences;
   }
 
-  public T GetRandEnum<[MustBeVariant] T>() {
+  private T GetRandEnum<[MustBeVariant] T>() {
     Random rand = new();
     System.Array values = Enum.GetValues(typeof(T));
     return (T)values.GetValue(rand.Next(values.Length));
+  }
+
+  private Occurence GeneratePrimaryIncident(TimeRange killTime, Person victim) {
+    Array<Person> others = Persons.Duplicate();
+    others.Remove(victim);
+
+    return new Occurence {
+      When = killTime.GenerateDisconnectingRange(),
+      Where = Locations.GetRandFromArray(),
+      Action = new GroupAction {
+        Actor = victim,
+        Type = GetRandEnum<GroupActionType>(),
+        Others = others,
+      }
+    };
   }
 }
 
