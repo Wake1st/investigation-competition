@@ -41,15 +41,12 @@ public partial class TimelineGenerator : Node
     (
       Occurence incitingIncident,
       Person victim,
-      Person killer, 
-      TimeRange killTime, 
+      Person killer,
+      TimeRange killTime,
       int primeSceneIndex
     ) = GenerateIncitingIncident();
 
-    crimeLine.RootNode = new()
-    {
-      Occurence = incitingIncident,
-    };
+    crimeLine.RootNode = incitingIncident;
 
     //  next, the other persons must be accounted for during the kill time
     Array<Person> innocents = Persons.Duplicate();
@@ -61,12 +58,13 @@ public partial class TimelineGenerator : Node
     Occurence primaryIncident = GeneratePrimaryIncident(killTime, victim);
 
     // fill in nodes for each person
-
+    crimeLine.SuspectTimelines = GenerateSuspectTimelines(primaryIncident, incitingIncident, alibiOccurences, primeSceneIndex);
 
     return crimeLine;
   }
 
-  private (Occurence, Person, Person, TimeRange, int) GenerateIncitingIncident() {
+  private (Occurence, Person, Person, TimeRange, int) GenerateIncitingIncident()
+  {
     Random rand = new();
 
     //  first, there must be an inciting incident
@@ -149,34 +147,42 @@ public partial class TimelineGenerator : Node
       }
     }
 
-        //  create occurences for the innocents
+    //  create occurences for the innocents
     Array<Occurence> occurences = new();
     foreach (Location location in alibiLocations.Keys)
     {
       var list = alibiLocations[location];
-      if (list.Count > 1) {
+      if (list.Count > 1)
+      {
         //  multiple people involved
         var randItem = list[rand.Next(list.Count)];
         list.Remove(randItem);
-        GroupAction groupAction = new() {
+        GroupAction groupAction = new()
+        {
           Actor = randItem.Item1,
           Type = GetRandEnum<GroupActionType>(),
           Others = list.Select(tuple => tuple.Item1).AsArray()
         };
-        foreach (var personTimeRange in list) {
-          occurences.Add(new Occurence {
+        foreach (var personTimeRange in list)
+        {
+          occurences.Add(new Occurence
+          {
             When = personTimeRange.Item2,
             Where = location,
             Action = groupAction
           });
         }
-      } else {
+      }
+      else
+      {
         //  just one person
         var personTimeRange = list.First();
-        occurences.Add(new Occurence {
+        occurences.Add(new Occurence
+        {
           When = personTimeRange.Item2,
           Where = location,
-          Action = new LoneAction {
+          Action = new LoneAction
+          {
             Actor = personTimeRange.Item1,
             Type = GetRandEnum<LoneActionType>(),
           }
@@ -187,33 +193,95 @@ public partial class TimelineGenerator : Node
     return occurences;
   }
 
-  private T GetRandEnum<[MustBeVariant] T>() {
+  private T GetRandEnum<[MustBeVariant] T>()
+  {
     Random rand = new();
     System.Array values = Enum.GetValues(typeof(T));
     return (T)values.GetValue(rand.Next(values.Length));
   }
 
-  private Occurence GeneratePrimaryIncident(TimeRange killTime, Person victim) {
+  private Occurence GeneratePrimaryIncident(TimeRange killTime, Person victim)
+  {
     Array<Person> others = Persons.Duplicate();
     others.Remove(victim);
 
-    return new Occurence {
+    return new Occurence
+    {
       When = killTime.GenerateDisconnectingRange(),
       Where = Locations.GetRandFromArray(),
-      Action = new GroupAction {
+      Action = new GroupAction
+      {
         Actor = victim,
         Type = GetRandEnum<GroupActionType>(),
         Others = others,
       }
     };
   }
+
+  private Godot.Collections.Dictionary<Person, Timeline> GenerateSuspectTimelines(Occurence primaryIncident, Occurence incitingIncident, Array<Occurence> alibiOccurences, int primeSceneIndex)
+  {
+    Random rand = new();
+    Godot.Collections.Dictionary<Person, Timeline> timelines = new();
+
+    foreach (Person person in Persons)
+    {
+      Timeline timeline = new();
+      Occurence alibi = alibiOccurences.First(o => person == o.Action.Actor);
+      alibi ??= alibiOccurences.First(o => ((GroupAction)o.Action).Others.Contains(person));
+
+      //  generate minor occurences (person is alone)
+      Array<Occurence> beforeNodes = new();
+      Array<TimeRange> timeRanges = primaryIncident.When.GenerateInsertingRanges(alibi.When);
+      foreach (TimeRange range in timeRanges)
+      {
+        beforeNodes.Add(new Occurence
+        {
+          When = range,
+          Where = Locations.GetRandFromArray(primeSceneIndex),
+          Action = new LoneAction
+          {
+            Actor = person,
+            Type = GetRandEnum<LoneActionType>()
+          }
+        });
+      }
+
+      //  add an after occurence
+      Occurence afterNode = new()
+      {
+        When = alibi.When.GenerateDisconnectingRange(before: false),
+        Where = Locations.GetRandFromArray(primeSceneIndex),
+        Action = new LoneAction
+        {
+          Actor = person,
+          Type = GetRandEnum<LoneActionType>()
+        }
+      };
+
+      //  add the occurences
+      timeline.Nodes = new Array<Occurence>
+      {
+        primaryIncident,
+      };
+      timeline.Nodes.AddRange(beforeNodes);
+      timeline.Nodes.Add(alibi);
+      timeline.Nodes.Add(afterNode);
+
+      timelines.Add(person, timeline);
+    }
+
+    return timelines;
+  }
 }
 
-public static class GeneratorExtensions {
-  public static T GetRandFromArray<[MustBeVariant] T>(this Array<T> items, int? exceptionIndex = null) {
+public static class GeneratorExtensions
+{
+  public static T GetRandFromArray<[MustBeVariant] T>(this Array<T> items, int? exceptionIndex = null)
+  {
     Random rand = new();
 
-    if (exceptionIndex != null) {
+    if (exceptionIndex != null)
+    {
       int itemIndex;
       do
       {
@@ -221,14 +289,18 @@ public static class GeneratorExtensions {
       } while (itemIndex == exceptionIndex);
 
       return items[itemIndex];
-    } else {
+    }
+    else
+    {
       return items[rand.Next(items.Count)];
     }
   }
 
-  public static Array<T> AsArray<[MustBeVariant] T>(this IEnumerable<T> items) {
+  public static Array<T> AsArray<[MustBeVariant] T>(this IEnumerable<T> items)
+  {
     Array<T> arrayItems = new();
-    foreach (T item in items) {
+    foreach (T item in items)
+    {
       arrayItems.Add(item);
     }
     return arrayItems;

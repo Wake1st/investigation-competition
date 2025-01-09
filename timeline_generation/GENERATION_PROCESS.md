@@ -22,13 +22,13 @@ This is a step by step walkthrough to better understand how the timeline generat
     - [x] set a time that intersects the murder time
     - [x] create occurences (possibly shared) for the timeline
 - [x] add primary nodes (everyone was somewhere - "dinner", "lounging", "found the body"... for a long duration of time)
-- [ ] add minor nodes
-  - [ ] go backwards from root node, then forwards from root node
+- [x] add minor nodes
+  - [x] go backwards from root node, then forwards from root node
   - [ ] switch between people, allowing a chance for an `Occurence` should a person's path cross another
     - [ ] "meeting"/"seeing"
     - [ ] "observing"/"overhearing"
-  - [ ] these should connect with the primary nodes when appropriate
-    - [ ] if they need to change `Location`, then insert the appropriate `Location` changes from one place to another
+  - [x] these should connect with the primary nodes when appropriate
+    - ~~[ ] if they need to change `Location`, then insert the appropriate `Location` changes from one place to another~~
 - [ ] once someone "raises the alarm", everyone should either:
   - [ ] go to the "body"
   - [ ] take advantage of the "panic"
