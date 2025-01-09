@@ -34,10 +34,12 @@ public partial class TimelineGenerator : Node
     GD.Load<Weapon>("res://resources/clues/weapons/shears.tres"),
   };
 
+  public TimePoint StartTime { get; set; } = new();
+  public TimePoint EndTime { get; set; } = new();
+
   public CrimeLine Generate()
   {
-    CrimeLine crimeLine = new();
-
+    //  first, create the inciting incident
     (
       Occurence incitingIncident,
       Person victim,
@@ -45,8 +47,6 @@ public partial class TimelineGenerator : Node
       TimeRange killTime,
       int primeSceneIndex
     ) = GenerateIncitingIncident();
-
-    crimeLine.RootNode = incitingIncident;
 
     //  next, the other persons must be accounted for during the kill time
     Array<Person> innocents = Persons.Duplicate();
@@ -56,11 +56,14 @@ public partial class TimelineGenerator : Node
 
     //  next, primary nodes (dinner)
     Occurence primaryIncident = GeneratePrimaryIncident(killTime, victim);
+    StartTime = primaryIncident.When.Start;
 
     // fill in nodes for each person
-    crimeLine.SuspectTimelines = GenerateSuspectTimelines(primaryIncident, incitingIncident, alibiOccurences, primeSceneIndex);
 
-    return crimeLine;
+    return new CrimeLine {
+      RootNode = incitingIncident,
+      SuspectTimelines = GenerateSuspectTimelines(primaryIncident, incitingIncident, alibiOccurences, primeSceneIndex)
+    };
   }
 
   private (Occurence, Person, Person, TimeRange, int) GenerateIncitingIncident()
@@ -257,6 +260,11 @@ public partial class TimelineGenerator : Node
           Type = GetRandEnum<LoneActionType>()
         }
       };
+
+      //  check for the latest time
+      if (afterNode.When.End.GetTimeInMinutes() > EndTime.GetTimeInMinutes()) {
+        EndTime = afterNode.When.End;
+      }
 
       //  add the occurences
       timeline.Nodes = new Array<Occurence>

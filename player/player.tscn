@@ -11,6 +11,7 @@ script = ExtResource("1_wyl86")
 
 [node name="Inventory" parent="." instance=ExtResource("4_gx5us")]
 anchors_preset = 0
+anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
 offset_top = 240.0

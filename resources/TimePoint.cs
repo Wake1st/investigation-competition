@@ -17,3 +17,9 @@ public partial class TimePoint : Resource
   }
   private int minute;
 }
+
+public static class TimePointExtensions {
+  public static int GetTimeInMinutes(this TimePoint time) {
+    return time.Hour * 60 + time.Minute;
+  }
+}

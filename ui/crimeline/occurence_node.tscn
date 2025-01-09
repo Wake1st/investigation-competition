@@ -1,0 +1,3 @@
+[gd_scene format=3 uid="uid://dvr4qoht0lt8p"]
+
+[node name="OccurenceNode" type="Sprite2D"]
