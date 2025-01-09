@@ -4,7 +4,7 @@ using System.Linq;
 using Godot;
 using Godot.Collections;
 
-public partial class TimelineGenerator : Node
+public partial class TimelineGenerator
 {
   public Array<Person> Persons = new()
   {
@@ -59,10 +59,9 @@ public partial class TimelineGenerator : Node
     StartTime = primaryIncident.When.Start;
 
     // fill in nodes for each person
-
     return new CrimeLine {
       RootNode = incitingIncident,
-      SuspectTimelines = GenerateSuspectTimelines(primaryIncident, incitingIncident, alibiOccurences, primeSceneIndex)
+      SuspectTimelines = GenerateSuspectTimelines(primaryIncident, alibiOccurences, primeSceneIndex)
     };
   }
 
@@ -148,16 +147,37 @@ public partial class TimelineGenerator : Node
           new List<Tuple<Person, TimeRange>>() { new(innocent, timeRange) }
         );
       }
+
+      GD.Print($"{innocent.Name} was in {alibiLocation.Term} during {timeRange.Print()}");
     }
 
     //  create occurences for the innocents
     Array<Occurence> occurences = new();
     foreach (Location location in alibiLocations.Keys)
     {
+      // //  check if people were in the same place and time
+      // Array<TimeRange> times = list.Select((item) => item.Item2).AsArray();
+      // foreach ((Person person, TimeRange range) in list) {
+      //   var otherTimes = times.Duplicate();
+      //   otherTimes.Remove(range);
+      //   foreach (TimeRange other in otherTimes) {
+      //     if (range.DoesIntersect(other)) {
+
+      //     }
+      //   }
+      // }
+
       var list = alibiLocations[location];
       if (list.Count > 1)
       {
-        //  multiple people involved
+        //  multiple people were in a location,
+        //  but we must check if the times overlap
+        //  maybe use dictionaries, tuples suck
+        var orderedList = list.OrderBy(
+          (Tuple<Person, TimeRange> a, Tuple<Person, TimeRange> b) => 
+          a.Item2.Start.GetTimeInMinutes() < b.Item2.Start.GetTimeInMinutes()
+        );
+
         var randItem = list[rand.Next(list.Count)];
         list.Remove(randItem);
         GroupAction groupAction = new()
@@ -221,7 +241,10 @@ public partial class TimelineGenerator : Node
     };
   }
 
-  private Godot.Collections.Dictionary<Person, Timeline> GenerateSuspectTimelines(Occurence primaryIncident, Occurence incitingIncident, Array<Occurence> alibiOccurences, int primeSceneIndex)
+  private Godot.Collections.Dictionary<Person, Timeline> GenerateSuspectTimelines(
+    Occurence primaryIncident, 
+    Array<Occurence> alibiOccurences, 
+    int primeSceneIndex)
   {
     Random rand = new();
     Godot.Collections.Dictionary<Person, Timeline> timelines = new();
@@ -229,8 +252,18 @@ public partial class TimelineGenerator : Node
     foreach (Person person in Persons)
     {
       Timeline timeline = new();
-      Occurence alibi = alibiOccurences.First(o => person == o.Action.Actor);
-      alibi ??= alibiOccurences.First(o => ((GroupAction)o.Action).Others.Contains(person));
+      #nullable enable
+      Occurence? alibi = alibiOccurences.FirstOrDefault(o => person == o.Action.Actor);
+      alibi ??= alibiOccurences.FirstOrDefault(o => {
+        if (o.Action.GetType() == typeof(GroupAction)) {
+          var names = String.Join(", ", ((GroupAction)o.Action).Others.Select(p => p.Name));
+          GD.Print($"people in group: {names}");
+          return ((GroupAction)o.Action).Others.Contains(person);
+        } else {
+          return false;
+        }
+      });
+      GD.Print($"alibi {alibi} found for {person.Name}");
 
       //  generate minor occurences (person is alone)
       Array<Occurence> beforeNodes = new();

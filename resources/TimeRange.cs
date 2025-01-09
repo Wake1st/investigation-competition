@@ -13,29 +13,45 @@ public partial class TimeRange : Resource
 
 public static class TimeRangeExtensions
 {
-  public static TimeRange GenerateIntersectingRange(this TimeRange range)
+  public static string Print(this TimeRange range) {
+    return $"{range.Start.Hour}:{range.Start.Minute} - {range.End.Hour}:{range.End.Minute}";
+  }
+
+  public static bool DoesIntersect(this TimeRange source, TimeRange other) {
+    int sourceStart = source.Start.GetTimeInMinutes();
+    int sourceEnd = source.End.GetTimeInMinutes();
+    int otherStart = other.Start.GetTimeInMinutes();
+    int otherEnd = other.End.GetTimeInMinutes();
+
+    return (otherStart < sourceStart && sourceStart < otherEnd)
+      || (otherStart < sourceEnd && sourceEnd < otherEnd)
+      || (sourceStart < otherStart && otherEnd < sourceEnd)
+      || (otherStart < sourceStart && sourceEnd < otherEnd);
+  }
+
+  public static TimeRange GenerateIntersectingRange(this TimeRange source)
   {
     Random rand = new();
 
     int startHour = rand.Next(
-      range.End.Hour == 25 ? 25 : range.End.Hour + 1
+      source.End.Hour == 25 ? 25 : source.End.Hour + 1
     );
-    if (startHour == range.Start.Hour && range.Start.Minute == 0)
+    if (startHour == source.Start.Hour && source.Start.Minute == 0)
     {
       startHour--;
     }
 
     int endHour = rand.Next(startHour, 25);
-    if (endHour == range.End.Hour && range.End.Minute == 55)
+    if (endHour == source.End.Hour && source.End.Minute == 55)
     {
       endHour++;
     }
 
-    int startMinutes = startHour == range.Start.Hour
-      ? rand.Next(0, range.Start.Minute)
+    int startMinutes = startHour == source.Start.Hour
+      ? rand.Next(0, source.Start.Minute)
       : rand.Next(60);
-    int endMinutes = endHour == range.End.Hour
-      ? rand.Next(range.End.Minute, 60)
+    int endMinutes = endHour == source.End.Hour
+      ? rand.Next(source.End.Minute, 60)
       : rand.Next(60);
 
     return new TimeRange()
@@ -53,7 +69,7 @@ public static class TimeRangeExtensions
     };
   }
 
-  public static TimeRange GenerateDisconnectingRange(this TimeRange range, bool before = true)
+  public static TimeRange GenerateDisconnectingRange(this TimeRange source, bool before = true)
   {
     Random rand = new();
 
@@ -61,12 +77,12 @@ public static class TimeRangeExtensions
     int startHour;
     if (before)
     {
-      endHour = rand.Next(range.Start.Hour);
+      endHour = rand.Next(source.Start.Hour);
       startHour = rand.Next(endHour);
     }
     else
     {
-      startHour = rand.Next(range.End.Hour + 1, 25);
+      startHour = rand.Next(source.End.Hour + 1, 25);
       endHour = rand.Next(startHour, 25);
     }
 
@@ -102,10 +118,12 @@ public static class TimeRangeExtensions
     Random rand = new();
     Array<TimeRange> ranges = new();
 
-    TimePoint start = after.Start;
-    TimePoint end = before.End;
+    TimePoint end = after.Start;
+    TimePoint start = before.End;
+
     int insertionMinutes = (end.Hour - start.Hour) * 60 + end.Minute - start.Minute;
     int nodeCount = rand.Next(insertionMinutes / 30);
+
     for (int i = 0; i < nodeCount; i++)
     {
       //  set up an relative span
