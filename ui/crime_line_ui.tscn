@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://c0qy374pldum1"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4vqcu"]
+bg_color = Color(0.91, 0.8372, 0.546, 1)
+
+[node name="CrimeLineUI" type="Panel"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 754.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_4vqcu")
