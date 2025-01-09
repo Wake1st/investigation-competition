@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Weapon" load_steps=2 format=3 uid="uid://bkcio0g40jahw"]
+
+[ext_resource type="Script" path="res://resources/clues/weapons/Weapon.cs" id="1_sccrm"]
+
+[resource]
+script = ExtResource("1_sccrm")
+KillType = 3
+Term = "Candelabra"
+Significance = 1
+Description = "Five, silver arms hold 4 slightly bend candles."

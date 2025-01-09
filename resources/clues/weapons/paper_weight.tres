@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Weapon" load_steps=2 format=3 uid="uid://cc1707vjh4ym8"]
+
+[ext_resource type="Script" path="res://resources/clues/weapons/Weapon.cs" id="1_p56qv"]
+
+[resource]
+script = ExtResource("1_p56qv")
+KillType = 3
+Term = "Paper Weight"
+Significance = 1
+Description = "A heavy, marble block; some nonsence about inspiration is carved into the top."

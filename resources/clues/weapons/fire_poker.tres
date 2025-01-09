@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Weapon" load_steps=2 format=3 uid="uid://cxk2si66jspx5"]
+
+[ext_resource type="Script" path="res://resources/clues/weapons/Weapon.cs" id="1_b2jrq"]
+
+[resource]
+script = ExtResource("1_b2jrq")
+KillType = 3
+Term = "Fire Poker"
+Significance = 1
+Description = "A long, iron rod meant for rearranging the contents of a fire."
