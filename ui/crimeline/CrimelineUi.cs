@@ -4,6 +4,8 @@ using Godot;
 
 public partial class CrimelineUi : Panel
 {
+  const int FONT_SIZE = 48;
+  private readonly Color FONT_COLOR = Color.Color8(100,100,100,255);
 	private CrimeLine Crimeline { get; set; } = new();
 
 	public override void _Ready()
@@ -31,8 +33,12 @@ public partial class CrimelineUi : Panel
   private void AddLable(string text, Vector2 position) {
     Label label = new()
     {
-        Text = text,
-        Position = position
+      Text = text,
+      Position = position,
+      LabelSettings = new LabelSettings {
+        FontSize = FONT_SIZE,
+        FontColor = FONT_COLOR
+      }
     };
     AddChild(label);
   }
