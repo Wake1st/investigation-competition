@@ -59,9 +59,17 @@ public partial class TimelineGenerator
     StartTime = primaryIncident.When.Start;
 
     // fill in nodes for each person
-    return new CrimeLine {
+    return new CrimeLine
+    {
       RootNode = incitingIncident,
-      SuspectTimelines = GenerateSuspectTimelines(primaryIncident, alibiOccurences, primeSceneIndex)
+      SuspectTimelines = GenerateSuspectTimelines(
+        primaryIncident,
+        incitingIncident,
+        alibiOccurences,
+        victim,
+        killer,
+        primeSceneIndex
+      )
     };
   }
 
@@ -122,8 +130,9 @@ public partial class TimelineGenerator
 
   private Array<Occurence> GenerateAlibis(Array<Person> innocents, TimeRange killTime, int primeSceneIndex)
   {
-    System.Collections.Generic.Dictionary<Location, List<Tuple<Person, TimeRange>>> alibiLocations = new();
+    System.Collections.Generic.Dictionary<Location, Godot.Collections.Dictionary<TimeRange, Person>> alibiLocations = new();
     Random rand = new();
+    Array<Occurence> occurences = new();
 
     foreach (Person innocent in innocents)
     {
@@ -133,84 +142,17 @@ public partial class TimelineGenerator
       //  give each person a location
       Location alibiLocation = Locations.GetRandFromArray(primeSceneIndex);
 
-      //  add the person to the dictionary
-      if (alibiLocations.ContainsKey(alibiLocation))
+      //  add the person doing something alone
+      occurences.Add(new Occurence
       {
-        alibiLocations[alibiLocation].Add(
-          new Tuple<Person, TimeRange>(innocent, timeRange)
-        );
-      }
-      else
-      {
-        alibiLocations.Add(
-          alibiLocation,
-          new List<Tuple<Person, TimeRange>>() { new(innocent, timeRange) }
-        );
-      }
-
-      GD.Print($"{innocent.Name} was in {alibiLocation.Term} during {timeRange.Print()}");
-    }
-
-    //  create occurences for the innocents
-    Array<Occurence> occurences = new();
-    foreach (Location location in alibiLocations.Keys)
-    {
-      // //  check if people were in the same place and time
-      // Array<TimeRange> times = list.Select((item) => item.Item2).AsArray();
-      // foreach ((Person person, TimeRange range) in list) {
-      //   var otherTimes = times.Duplicate();
-      //   otherTimes.Remove(range);
-      //   foreach (TimeRange other in otherTimes) {
-      //     if (range.DoesIntersect(other)) {
-
-      //     }
-      //   }
-      // }
-
-      var list = alibiLocations[location];
-      if (list.Count > 1)
-      {
-        //  multiple people were in a location,
-        //  but we must check if the times overlap
-        //  maybe use dictionaries, tuples suck
-        var orderedList = list.OrderBy(
-          (Tuple<Person, TimeRange> a, Tuple<Person, TimeRange> b) => 
-          a.Item2.Start.GetTimeInMinutes() < b.Item2.Start.GetTimeInMinutes()
-        );
-
-        var randItem = list[rand.Next(list.Count)];
-        list.Remove(randItem);
-        GroupAction groupAction = new()
+        When = timeRange,
+        Where = alibiLocation,
+        Action = new LoneAction
         {
-          Actor = randItem.Item1,
-          Type = GetRandEnum<GroupActionType>(),
-          Others = list.Select(tuple => tuple.Item1).AsArray()
-        };
-        foreach (var personTimeRange in list)
-        {
-          occurences.Add(new Occurence
-          {
-            When = personTimeRange.Item2,
-            Where = location,
-            Action = groupAction
-          });
+          Actor = innocent,
+          Type = GetRandEnum<LoneActionType>(),
         }
-      }
-      else
-      {
-        //  just one person
-        var personTimeRange = list.First();
-        occurences.Add(new Occurence
-        {
-          When = personTimeRange.Item2,
-          Where = location,
-          Action = new LoneAction
-          {
-            Actor = personTimeRange.Item1,
-            Type = GetRandEnum<LoneActionType>(),
-          }
-        });
-      }
+      });
     }
 
     return occurences;
@@ -242,8 +184,11 @@ public partial class TimelineGenerator
   }
 
   private Godot.Collections.Dictionary<Person, Timeline> GenerateSuspectTimelines(
-    Occurence primaryIncident, 
-    Array<Occurence> alibiOccurences, 
+    Occurence primaryIncident,
+    Occurence incitingIncident,
+    Array<Occurence> alibiOccurences,
+    Person victim,
+    Person killer,
     int primeSceneIndex)
   {
     Random rand = new();
@@ -252,22 +197,19 @@ public partial class TimelineGenerator
     foreach (Person person in Persons)
     {
       Timeline timeline = new();
-      #nullable enable
-      Occurence? alibi = alibiOccurences.FirstOrDefault(o => person == o.Action.Actor);
-      alibi ??= alibiOccurences.FirstOrDefault(o => {
-        if (o.Action.GetType() == typeof(GroupAction)) {
-          var names = String.Join(", ", ((GroupAction)o.Action).Others.Select(p => p.Name));
-          GD.Print($"people in group: {names}");
-          return ((GroupAction)o.Action).Others.Contains(person);
-        } else {
-          return false;
-        }
-      });
-      GD.Print($"alibi {alibi} found for {person.Name}");
+      Occurence killingOccurence;
+      if (person == victim || person == killer)
+      {
+        killingOccurence = incitingIncident;
+      }
+      else
+      {
+        killingOccurence = alibiOccurences.Single(o => person == o.Action.Actor);
+      }
 
-      //  generate minor occurences (person is alone)
+      //  generate minor occurences between primary and inciting incidents
       Array<Occurence> beforeNodes = new();
-      Array<TimeRange> timeRanges = primaryIncident.When.GenerateInsertingRanges(alibi.When);
+      Array<TimeRange> timeRanges = primaryIncident.When.GenerateInsertingRanges(killingOccurence.When);
       foreach (TimeRange range in timeRanges)
       {
         beforeNodes.Add(new Occurence
@@ -285,7 +227,7 @@ public partial class TimelineGenerator
       //  add an after occurence
       Occurence afterNode = new()
       {
-        When = alibi.When.GenerateDisconnectingRange(before: false),
+        When = killingOccurence.When.GenerateDisconnectingRange(before: false),
         Where = Locations.GetRandFromArray(primeSceneIndex),
         Action = new LoneAction
         {
@@ -295,7 +237,8 @@ public partial class TimelineGenerator
       };
 
       //  check for the latest time
-      if (afterNode.When.End.GetTimeInMinutes() > EndTime.GetTimeInMinutes()) {
+      if (afterNode.When.End.GetTimeInMinutes() > EndTime.GetTimeInMinutes())
+      {
         EndTime = afterNode.When.End;
       }
 
@@ -305,7 +248,7 @@ public partial class TimelineGenerator
         primaryIncident,
       };
       timeline.Nodes.AddRange(beforeNodes);
-      timeline.Nodes.Add(alibi);
+      timeline.Nodes.Add(killingOccurence);
       timeline.Nodes.Add(afterNode);
 
       timelines.Add(person, timeline);

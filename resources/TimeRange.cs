@@ -13,11 +13,13 @@ public partial class TimeRange : Resource
 
 public static class TimeRangeExtensions
 {
-  public static string Print(this TimeRange range) {
+  public static string Print(this TimeRange range)
+  {
     return $"{range.Start.Hour}:{range.Start.Minute} - {range.End.Hour}:{range.End.Minute}";
   }
 
-  public static bool DoesIntersect(this TimeRange source, TimeRange other) {
+  public static bool DoesIntersect(this TimeRange source, TimeRange other)
+  {
     int sourceStart = source.Start.GetTimeInMinutes();
     int sourceEnd = source.End.GetTimeInMinutes();
     int otherStart = other.Start.GetTimeInMinutes();
@@ -121,7 +123,7 @@ public static class TimeRangeExtensions
     TimePoint end = after.Start;
     TimePoint start = before.End;
 
-    int insertionMinutes = (end.Hour - start.Hour) * 60 + end.Minute - start.Minute;
+    int insertionMinutes = end.GetTimeInMinutes() - start.GetTimeInMinutes();
     int nodeCount = rand.Next(insertionMinutes / 30);
 
     for (int i = 0; i < nodeCount; i++)

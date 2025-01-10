@@ -13,6 +13,9 @@ This is a step by step walkthrough to better understand how the timeline generat
 
 
 ## Steps
+- [ ] create a limited time frame within the day
+  - [ ] should span several hours (not the whole day)
+  - [ ] during a time most people would be awake
 - [x] start with a root node: 
   - [x] someone murdered someone
   - [x] somewhere
@@ -21,14 +24,16 @@ This is a step by step walkthrough to better understand how the timeline generat
     - [x] give each person a location
     - [x] set a time that intersects the murder time
     - [x] create occurences (possibly shared) for the timeline
-- [x] add primary nodes (everyone was somewhere - "dinner", "lounging", "found the body"... for a long duration of time)
-- [x] add minor nodes
+- [x] add primary nodes (group actions - "dinner", "lounging", "found the body"... for a long duration of time)
+- [x] add minor nodes (lone actions)
   - [x] go backwards from root node, then forwards from root node
-  - [ ] switch between people, allowing a chance for an `Occurence` should a person's path cross another
-    - [ ] "meeting"/"seeing"
-    - [ ] "observing"/"overhearing"
   - [x] these should connect with the primary nodes when appropriate
-    - ~~[ ] if they need to change `Location`, then insert the appropriate `Location` changes from one place to another~~
+
+## Stretch Goals
+- [ ] allow people a chance for crossing another's path
+  - [ ] "meeting"/"seeing"
+  - [ ] "observing"/"overhearing"
+- [ ] when a person changes `Location`, then insert the appropriate `Location` changes from one place to another
 - [ ] once someone "raises the alarm", everyone should either:
   - [ ] go to the "body"
   - [ ] take advantage of the "panic"
